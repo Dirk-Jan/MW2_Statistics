@@ -95,7 +95,7 @@ namespace MW2_Statistics
 
         public string getKillFeed()
         {
-            string killfeed = "";
+            string killfeed = "- - - - -";
             switch (Type)
             {
                 case "K"://player killed                        -     6:12 K;01100001044e6121;7;allies;DOC.Anarchist <;0110000102e85117;5;axis;GhostPhReaK;beretta393_mp;33;MOD_PISTOL_BULLET;left_leg_upper

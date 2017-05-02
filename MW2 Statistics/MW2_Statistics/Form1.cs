@@ -16,5 +16,12 @@ namespace MW2_Statistics
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DatabaseFiller df = new DatabaseFiller();
+            df.CollectFeed();
+            listBox1.DataSource = df.Feed;
+        }
     }
 }
