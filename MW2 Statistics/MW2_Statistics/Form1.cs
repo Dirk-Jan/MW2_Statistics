@@ -22,6 +22,7 @@ namespace MW2_Statistics
             DatabaseFiller df = new DatabaseFiller();
             df.CollectFeed();
             listBox1.DataSource = df.Feed;
+            MessageBox.Show(df.Feed[df.Feed.Count-1]);
         }
     }
 }
