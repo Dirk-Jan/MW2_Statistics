@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace MW2_Statistics_Dashboard
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for IndividualPlayerStats.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class IndividualPlayerStats : UserControl
     {
-        public MainWindow()
+        public IndividualPlayerStats()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

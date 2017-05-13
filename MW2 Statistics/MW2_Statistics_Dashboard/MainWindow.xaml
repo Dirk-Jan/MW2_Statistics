@@ -5,10 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MW2_Statistics_Dashboard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Modern Warfare 2 - Dashboard" Height="500" Width="800">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="180"/>
-        <ListBox HorizontalAlignment="Left" Height="271" Margin="10,38,0,0" VerticalAlignment="Top" Width="180"/>
+        <TabControl Margin="10">
+            <TabItem Header="Matches">
+                <Grid Background="#FFE5E5E5">
+                    <DatePicker HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="127,10,0,0" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="117,14,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top"/>
+                    <ListBox HorizontalAlignment="Left" Margin="10,39,0,10" Width="219"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Players">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox HorizontalAlignment="Left" Margin="10,39,0,10" Width="219"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="219"/>
+                    <local:IndividualPlayerStats Margin="234,11,10,10"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

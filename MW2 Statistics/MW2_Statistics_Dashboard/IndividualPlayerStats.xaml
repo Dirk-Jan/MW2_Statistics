@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="MW2_Statistics_Dashboard.IndividualPlayerStats"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MW2_Statistics_Dashboard"
+             mc:Ignorable="d" 
+             d:DesignHeight="375" d:DesignWidth="600">
+    <Grid>
+        <TabControl Margin="0,27,0,0">
+            <TabItem Header="Overview">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Kills" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Margin="0,26,0,0"/>
+
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Deaths" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
+
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="KDR" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="5.25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
+
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Favourite Weapon" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3"/>
+                        <Image Margin="10,26,10,0" Grid.Column="3"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Longest Killing Spree" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Margin="0,26,0,0"/>
+
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Headshots" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
+
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Most Killed" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alibaba" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
+
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Most Killed By" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Danny" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3" Margin="0,26,0,0"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Weapons">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        <ComboBox HorizontalAlignment="Left" Margin="310,0,0,0" VerticalAlignment="Top" Width="280"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="280"/>
+
+    </Grid>
+</UserControl>
