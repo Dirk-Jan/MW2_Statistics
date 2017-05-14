@@ -76,5 +76,10 @@ namespace MW2_Statistics
                 sr.ReadLine();
             }
         }
+
+        private void HandleMW2Event(MW2Event e)
+        {
+
+        }
     }
 }
