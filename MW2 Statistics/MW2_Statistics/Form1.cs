@@ -19,10 +19,7 @@ namespace MW2_Statistics
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DatabaseFiller df = new DatabaseFiller();
-            df.CollectFeed();
-            listBox1.DataSource = df.Feed;
-            MessageBox.Show(df.Feed[df.Feed.Count-1]);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -40,7 +37,7 @@ namespace MW2_Statistics
 
         private void btnRegMatch_Click(object sender, EventArgs e)
         {
-            DataBase.RegisterNewMatch();
+            MessageBox.Show(DataBase.RegisterNewMatch().ToString());
         }
 
         private void btnEndMatch_Click(object sender, EventArgs e)
@@ -86,6 +83,33 @@ namespace MW2_Statistics
         private void btnEmptyAllTables_Click(object sender, EventArgs e)
         {
             DataBase.EmptyAllTables();
+        }
+
+        private void btnReadLogFile_Click(object sender, EventArgs e)
+        {
+            SourceFileReader.CollectFeed();
+        }
+
+        private void btnSteamIdConvert_Click(object sender, EventArgs e)
+        {
+            string s = "0110000102e85117";
+            byte[] temp = StringToByteArray(s);
+            temp = temp.Reverse().ToArray();
+
+            string output = string.Empty;
+            for (int i = 0; i < temp.Length; i++)
+            {
+                output += temp[i].ToString("X2") + " ";
+            }
+            MessageBox.Show( output + Environment.NewLine + BitConverter.ToUInt64(temp, 0).ToString() );
+        }
+
+        public byte[] StringToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
         }
     }
 }

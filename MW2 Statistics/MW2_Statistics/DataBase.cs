@@ -9,9 +9,11 @@ namespace MW2_Statistics
 {
     public static class DataBase
     {
-        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";
+                "Initial Catalog=mw2stats";*/
+
+        private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
 
         // Should I get the playerId from the db and save it in a var and use it for further queries or use a subquery in each query?
         //
@@ -117,10 +119,12 @@ namespace MW2_Statistics
         }
         #endregion
         #region Match
-        public static void RegisterNewMatch()
+        public static int RegisterNewMatch()
         {
+            int returnVar = -1;
             string query = "INSERT INTO Match (TimeStart)" +
-                "VALUES (@TimeStart);";
+                "VALUES (@TimeStart);" +
+                "SELECT SCOPE_IDENTITY();";
 
             using (SqlConnection connection = new SqlConnection(mConnectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -128,8 +132,12 @@ namespace MW2_Statistics
                 connection.Open();
                 command.Parameters.AddWithValue("@TimeStart", DateTime.Now.ToBinary());
 
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
+                object obj = command.ExecuteScalar();
+                if (obj != null)
+                    returnVar = Convert.ToInt32(obj);
             }
+            return returnVar;
         }
 
         public static void EndMatch(int matchId)
@@ -169,6 +177,26 @@ namespace MW2_Statistics
                 return false;
             else
                 return true;
+        }
+
+        public static int GetWeaponId(string weaponName)
+        {
+            int result = -1;
+            string query = "SELECT id FROM Weapon " +
+                "WHERE Name = @Name;";
+
+            using (SqlConnection connection = new SqlConnection(mConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@Name", weaponName);
+
+                object obj = command.ExecuteScalar();
+                if(obj != null)
+                    result = Convert.ToInt32(obj);
+            }
+
+            return result;
         }
 
         public static void AddWeapon(string weaponName)

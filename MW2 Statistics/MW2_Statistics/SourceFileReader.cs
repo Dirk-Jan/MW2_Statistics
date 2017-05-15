@@ -7,20 +7,15 @@ using System.Threading.Tasks;
 
 namespace MW2_Statistics
 {
-    public class DatabaseFiller
+    public static class SourceFileReader
     {
         private const string mReadFile = "readfile";
-        //private string mHostFilePath = @"C:\Program Files (x86)\Steam\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
-        //private string mHostFilePath = @"C:\Users\Dirk-Jan de Beijer\Desktop\games_mp.log";
-        private string mHostFilePath = @"E:\SteamLibrary\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
-        private string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        //private static string mHostFilePath = @"C:\Program Files (x86)\Steam\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
+        private static string mHostFilePath = @"C:\Users\Dirk-Jan de Beijer\Desktop\logSimulation\games_mp.log";
+        //private static string mHostFilePath = @"E:\SteamLibrary\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
+        private static string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-        public List<string> Feed = new List<string>();
-
-        // Copy file
-        // var for lines read
-        
-        public void CollectFeed()
+        public static void CollectFeed()
         {
             string newFile = mRootPath + @"\copy";
             string lineCountFile = mRootPath + @"\linesread";
@@ -31,7 +26,7 @@ namespace MW2_Statistics
 
             // Get last read line
             UInt32 linesRead = 0;
-            if(File.Exists(lineCountFile))
+            if (File.Exists(lineCountFile))
             {
                 try
                 {
@@ -56,8 +51,10 @@ namespace MW2_Statistics
                 if (feed == string.Empty)
                     continue;
                 // Get the data from the feed and put it in the database
+                Console.WriteLine(feed);
                 MW2Event mw2Event = new MW2Event(feed);
-                Feed.Add(mw2Event.getKillFeed());
+                MW2EventHandler.HandleMW2Event(mw2Event);
+                //Feed.Add(mw2Event.getKillFeed());
 
                 feed = sr.ReadLine();
             }
@@ -69,17 +66,12 @@ namespace MW2_Statistics
             File.WriteAllBytes(lineCountFile, BitConverter.GetBytes(linesRead));
         }
 
-        private void SkipLines(StreamReader sr, UInt32 lineCount)
+        private static void SkipLines(StreamReader sr, UInt32 lineCount)
         {
             for (int i = 0; i < lineCount; i++)
             {
                 sr.ReadLine();
             }
-        }
-
-        private void HandleMW2Event(MW2Event e)
-        {
-
         }
     }
 }

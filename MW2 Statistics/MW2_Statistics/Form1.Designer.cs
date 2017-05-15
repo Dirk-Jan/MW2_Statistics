@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.btnTimeToLong = new System.Windows.Forms.Button();
@@ -43,6 +42,8 @@
             this.btnAliasExists = new System.Windows.Forms.Button();
             this.btnUpdatePlayerLastSeen = new System.Windows.Forms.Button();
             this.btnEmptyAllTables = new System.Windows.Forms.Button();
+            this.btnReadLogFile = new System.Windows.Forms.Button();
+            this.btnSteamIdConvert = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -52,16 +53,6 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(822, 563);
             this.listBox1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(13, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox1
             // 
@@ -191,11 +182,33 @@
             this.btnEmptyAllTables.UseVisualStyleBackColor = true;
             this.btnEmptyAllTables.Click += new System.EventHandler(this.btnEmptyAllTables_Click);
             // 
+            // btnReadLogFile
+            // 
+            this.btnReadLogFile.Location = new System.Drawing.Point(12, 12);
+            this.btnReadLogFile.Name = "btnReadLogFile";
+            this.btnReadLogFile.Size = new System.Drawing.Size(247, 23);
+            this.btnReadLogFile.TabIndex = 15;
+            this.btnReadLogFile.Text = "Read Log File";
+            this.btnReadLogFile.UseVisualStyleBackColor = true;
+            this.btnReadLogFile.Click += new System.EventHandler(this.btnReadLogFile_Click);
+            // 
+            // btnSteamIdConvert
+            // 
+            this.btnSteamIdConvert.Location = new System.Drawing.Point(882, 413);
+            this.btnSteamIdConvert.Name = "btnSteamIdConvert";
+            this.btnSteamIdConvert.Size = new System.Drawing.Size(117, 23);
+            this.btnSteamIdConvert.TabIndex = 16;
+            this.btnSteamIdConvert.Text = "Convert SteamID";
+            this.btnSteamIdConvert.UseVisualStyleBackColor = true;
+            this.btnSteamIdConvert.Click += new System.EventHandler(this.btnSteamIdConvert_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 620);
+            this.Controls.Add(this.btnSteamIdConvert);
+            this.Controls.Add(this.btnReadLogFile);
             this.Controls.Add(this.btnEmptyAllTables);
             this.Controls.Add(this.btnUpdatePlayerLastSeen);
             this.Controls.Add(this.btnAliasExists);
@@ -209,7 +222,6 @@
             this.Controls.Add(this.btnTimeToLong);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.listBox1);
             this.Name = "Form1";
             this.Text = "formpie";
@@ -220,7 +232,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnTimeToLong;
@@ -234,6 +245,8 @@
         private System.Windows.Forms.Button btnAliasExists;
         private System.Windows.Forms.Button btnUpdatePlayerLastSeen;
         private System.Windows.Forms.Button btnEmptyAllTables;
+        private System.Windows.Forms.Button btnReadLogFile;
+        private System.Windows.Forms.Button btnSteamIdConvert;
     }
 }
 
