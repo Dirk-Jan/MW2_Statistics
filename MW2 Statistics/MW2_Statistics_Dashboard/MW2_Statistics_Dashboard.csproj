@@ -62,10 +62,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Alias.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Database.cs" />
     <Compile Include="IndividualPlayerStats.xaml.cs">
       <DependentUpon>IndividualPlayerStats.xaml</DependentUpon>
     </Compile>
@@ -75,6 +77,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Match.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

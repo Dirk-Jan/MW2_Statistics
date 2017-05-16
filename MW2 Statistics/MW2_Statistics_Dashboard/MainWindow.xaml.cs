@@ -25,9 +25,14 @@ namespace MW2_Statistics_Dashboard
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Window_ContentRendered(object sender, EventArgs e)
         {
-            
+            lboxMatches.ItemsSource = Database.GetPlayers();
+        }
+
+        private void lboxMatches_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //e.AddedItems.
         }
     }
 }

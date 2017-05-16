@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MW2_Statistics_Dashboard"
         mc:Ignorable="d"
-        Title="Modern Warfare 2 - Dashboard" Height="500" Width="800">
+        Title="Modern Warfare 2 - Dashboard" Height="500" Width="800" ContentRendered="Window_ContentRendered">
     <Grid>
         <TabControl Margin="10">
             <TabItem Header="Matches">
@@ -18,8 +18,8 @@
             </TabItem>
             <TabItem Header="Players">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox HorizontalAlignment="Left" Margin="10,39,0,10" Width="219"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="219"/>
+                    <ListBox x:Name="lboxMatches" HorizontalAlignment="Left" Margin="10,39,0,10" Width="219" SelectionChanged="lboxMatches_SelectionChanged"/>
+                    <TextBox x:Name="tboxPlayerName" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="219"/>
                     <local:IndividualPlayerStats Margin="234,11,10,10"/>
                 </Grid>
             </TabItem>
