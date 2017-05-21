@@ -9,11 +9,11 @@ namespace MW2_Statistics
 {
     public static class DataBase
     {
-        /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";*/
+                "Initial Catalog=mw2stats";
 
-        private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
 
         // Should I get the playerId from the db and save it in a var and use it for further queries or use a subquery in each query?
         //
@@ -100,21 +100,37 @@ namespace MW2_Statistics
             else
                 return true;
         }
+        /*
+         *   2:00 D;011000011670ea41;3;axis;Mr.T-Rekkz;011000010b5366e1;6;allies;CanEHdian;m4_mp;42;MOD_RIFLE_BULLET;left_arm_upper
+  2:00 ShutdownGame:
+  2:00 ------------------------------------------------------------
+
+        I'm host and getting kicked for inactivity
+
+            What happens when I become host during a match?
+        */
 
         public static void AddPlayerAlias(string alias, long playerId, int matchId)
         {
-            string query = "INSERT INTO Alias (PlayerId, MatchId, PlayerName) " +
-                "VALUES (@PlayerId, @MatchId, @PlayerName);";
-
-            using (SqlConnection connection = new SqlConnection(mConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
+            if (matchId != -1)          // The host quits after the exit level line   so GetCurrentMatchId returns -1                   Do this check in the mw2eventhandler class
+                  /*8:51 ExitLevel: executed
+                    8:51 Q; 0110000102e85117; 2; Ghost~
+                    8:51 ShutdownGame:
+                    8:51------------------------------------------------------------*/
             {
-                connection.Open();
-                command.Parameters.AddWithValue("@PlayerId", playerId);
-                command.Parameters.AddWithValue("@MatchId", matchId);
-                command.Parameters.AddWithValue("@PlayerName", alias);
+                string query = "INSERT INTO Alias (PlayerId, MatchId, PlayerName) " +
+                    "VALUES (@PlayerId, @MatchId, @PlayerName);";
 
-                command.ExecuteNonQuery();
+                using (SqlConnection connection = new SqlConnection(mConnectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    command.Parameters.AddWithValue("@PlayerId", playerId);
+                    command.Parameters.AddWithValue("@MatchId", matchId);
+                    command.Parameters.AddWithValue("@PlayerName", alias);
+
+                    command.ExecuteNonQuery();
+                }
             }
         }
         #endregion
@@ -155,6 +171,24 @@ namespace MW2_Statistics
 
                 command.ExecuteNonQuery();
             }
+        }
+
+        public static int GetCurrentMatchId()
+        {
+            int returnVar = -1;
+            string query = "SELECT TOP(1) id FROM Match " +
+                "WHERE TimeStop is NULL;";
+
+            using (SqlConnection connection = new SqlConnection(mConnectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+
+                object obj = command.ExecuteScalar();
+                if (obj != null)
+                    returnVar = Convert.ToInt32(obj);
+            }
+            return returnVar;
         }
         #endregion
         #region Weapon

@@ -8,7 +8,10 @@ namespace MW2_Statistics
 {
     public static class MW2EventHandler
     {
-        private static int mMatchId = -1;    // Holds the id of the current match
+        private static int MatchId
+        {
+            get { return DataBase.GetCurrentMatchId(); }
+        }
 
         public static void HandleMW2Event(MW2Event e)
         {
@@ -20,12 +23,13 @@ namespace MW2_Statistics
                 case "initgame":
                     if (e.Timestamp == "0:00")    // New match began
                     {
-                        mMatchId = DataBase.RegisterNewMatch();
+                        //MatchId = DataBase.RegisterNewMatch();
+                        DataBase.RegisterNewMatch();
                     }
                     break;
-                case "exitlevel: executed":         // Match had finished
-                    DataBase.EndMatch(mMatchId);
-                    mMatchId = -1;
+                case "exitlevel: executed":         // Match has finished
+                    DataBase.EndMatch(MatchId);
+                    //MatchId = -1;
                     break;
                 case "j":
                 case "q":
@@ -35,17 +39,17 @@ namespace MW2_Statistics
                     break;
                 case "weapon":
                     UpdatePlayer(e.Victim);
-                    UpdateWWeapon(e.Weapon);
+                    UpdateWeapon(e.Weapon);
                     break;
                 case "k":
                 case "d":
                     long vicPlayerId = UpdatePlayer(e.Victim);
                     long attPlayerId = UpdatePlayer(e.Attacker);
-                    int wepId = UpdateWWeapon(e.Weapon);
+                    int wepId = UpdateWeapon(e.Weapon);
 
                     if (attPlayerId == -1)              // Player damaged himself
                         attPlayerId = vicPlayerId;
-                    DataBase.RegisterHit(vicPlayerId, attPlayerId, mMatchId, wepId, e.Damage, e.HitLocation, e.MeansOfDeath, e.Type == "k" ? true : false);
+                    DataBase.RegisterHit(vicPlayerId, attPlayerId, MatchId, wepId, e.Damage, e.HitLocation, e.MeansOfDeath, e.Type == "k" ? true : false);
                     break;
             }
         }
@@ -61,7 +65,7 @@ namespace MW2_Statistics
             return playerId;
         }
 
-        private static int UpdateWWeapon(string weaponName)
+        private static int UpdateWeapon(string weaponName)
         {
             int result;
             result = DataBase.GetWeaponId(weaponName);
@@ -87,9 +91,9 @@ namespace MW2_Statistics
 
         private static void AddAlias(long playerId, string playerName)
         {
-            if(!DataBase.PlayerAliasExists(playerName, playerId, mMatchId))
+            if(!DataBase.PlayerAliasExists(playerName, playerId, MatchId))
             {
-                DataBase.AddPlayerAlias(playerName, playerId, mMatchId);
+                DataBase.AddPlayerAlias(playerName, playerId, MatchId);
             }
         }
     }

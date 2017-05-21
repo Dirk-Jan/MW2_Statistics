@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,7 +43,7 @@ namespace MW2_Statistics
 
         private void btnEndMatch_Click(object sender, EventArgs e)
         {
-            DataBase.EndMatch(1);
+            DataBase.EndMatch(76);
         }
 
         private void btnGetPlayerId_Click(object sender, EventArgs e)
@@ -110,6 +111,38 @@ namespace MW2_Statistics
                              .Where(x => x % 2 == 0)
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
+        }
+
+        Thread mReader = null;
+        private void btnToggleReadHostFile_Click(object sender, EventArgs e)
+        {
+            if(mReader == null)
+            {
+                mReader = new Thread(new ThreadStart(ReadData));
+                btnToggleReadHostFile.Text = "Stop reading";
+                mReader.Start();
+            }
+            else
+            {
+                mReader.Abort();
+                mReader = null;
+                btnToggleReadHostFile.Text = "Start reading";
+            }
+        }
+
+        private void ReadData()
+        {
+            for(;;)
+            {
+                Console.WriteLine("Collecting feed...");
+                SourceFileReader.CollectFeed();
+                Thread.Sleep(1000);
+            }
+        }
+
+        private void btnGetCurrentMatchId_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(DataBase.GetCurrentMatchId().ToString());
         }
     }
 }

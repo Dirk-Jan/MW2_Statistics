@@ -44,6 +44,8 @@
             this.btnEmptyAllTables = new System.Windows.Forms.Button();
             this.btnReadLogFile = new System.Windows.Forms.Button();
             this.btnSteamIdConvert = new System.Windows.Forms.Button();
+            this.btnToggleReadHostFile = new System.Windows.Forms.Button();
+            this.btnGetCurrentMatchId = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -202,11 +204,33 @@
             this.btnSteamIdConvert.UseVisualStyleBackColor = true;
             this.btnSteamIdConvert.Click += new System.EventHandler(this.btnSteamIdConvert_Click);
             // 
+            // btnToggleReadHostFile
+            // 
+            this.btnToggleReadHostFile.Location = new System.Drawing.Point(852, 466);
+            this.btnToggleReadHostFile.Name = "btnToggleReadHostFile";
+            this.btnToggleReadHostFile.Size = new System.Drawing.Size(147, 23);
+            this.btnToggleReadHostFile.TabIndex = 17;
+            this.btnToggleReadHostFile.Text = "Start reading";
+            this.btnToggleReadHostFile.UseVisualStyleBackColor = true;
+            this.btnToggleReadHostFile.Click += new System.EventHandler(this.btnToggleReadHostFile_Click);
+            // 
+            // btnGetCurrentMatchId
+            // 
+            this.btnGetCurrentMatchId.Location = new System.Drawing.Point(882, 371);
+            this.btnGetCurrentMatchId.Name = "btnGetCurrentMatchId";
+            this.btnGetCurrentMatchId.Size = new System.Drawing.Size(117, 23);
+            this.btnGetCurrentMatchId.TabIndex = 18;
+            this.btnGetCurrentMatchId.Text = "Get current match id";
+            this.btnGetCurrentMatchId.UseVisualStyleBackColor = true;
+            this.btnGetCurrentMatchId.Click += new System.EventHandler(this.btnGetCurrentMatchId_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 620);
+            this.Controls.Add(this.btnGetCurrentMatchId);
+            this.Controls.Add(this.btnToggleReadHostFile);
             this.Controls.Add(this.btnSteamIdConvert);
             this.Controls.Add(this.btnReadLogFile);
             this.Controls.Add(this.btnEmptyAllTables);
@@ -247,6 +271,8 @@
         private System.Windows.Forms.Button btnEmptyAllTables;
         private System.Windows.Forms.Button btnReadLogFile;
         private System.Windows.Forms.Button btnSteamIdConvert;
+        private System.Windows.Forms.Button btnToggleReadHostFile;
+        private System.Windows.Forms.Button btnGetCurrentMatchId;
     }
 }
 
