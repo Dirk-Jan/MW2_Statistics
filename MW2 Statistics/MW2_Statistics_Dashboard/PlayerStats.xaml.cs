@@ -16,23 +16,25 @@ using System.Windows.Shapes;
 namespace MW2_Statistics_Dashboard
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PlayerStats.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PlayerStats : UserControl
     {
-        public MainWindow()
+        private List<Player> Players
+        {
+            set
+            {
+                lboxPlayers.ItemsSource = value;
+                if (lboxPlayers.Items.Count > 0)
+                    lboxPlayers.SelectedIndex = 0;
+            }
+        }
+        public PlayerStats()
         {
             InitializeComponent();
         }
 
-        private void Window_ContentRendered(object sender, EventArgs e)
-        {
-            lboxPlayers.ItemsSource = Database.GetPlayers();
-            if (lboxPlayers.Items.Count > 0)
-                lboxPlayers.SelectedIndex = 0;
-        }
-
-        private void lboxMatches_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lboxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Player p = (Player)e.AddedItems[0];
             induvidualPlayerView.LoadPlayerInfoInControl(p);

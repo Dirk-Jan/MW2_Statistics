@@ -22,16 +22,16 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Kills" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkKills" HorizontalAlignment="Center" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Margin="0,26,0,0"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Deaths" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkDeaths" HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="KDR" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="5.25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkKDR" HorizontalAlignment="Center" TextWrapping="Wrap" Text="5.25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Favourite Weapon" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3"/>
-                        <Image Margin="10,26,10,0" Grid.Column="3"/>
+                        <Image x:Name="imgFavouriteWeapon" Margin="10,26,10,0" Grid.Column="3"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -41,25 +41,54 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Longest Killing Spree" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkLongestKillingSpree" HorizontalAlignment="Center" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Margin="0,26,0,0"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Headshots" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkHeadshots" HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Most Killed" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alibaba" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkMostKilled" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alibaba" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Most Killed By" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Danny" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkMostKilledBy" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Danny" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3" Margin="0,26,0,0"/>
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Weapons">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="59*"/>
+                        <ColumnDefinition Width="139*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="lboxWeapons" Margin="10,10,16,10" SelectionChanged="lboxWeapons_SelectionChanged"/>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="imgWeapon"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Kills" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+                            <TextBlock x:Name="tblkWeaponKills" HorizontalAlignment="Center" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Margin="0,26,0,0"/>
+
+                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Headshots" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
+                            <TextBlock x:Name="tblkWeaponHeadShots" HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
+
+                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Killed By" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
+                            <TextBlock x:Name="tblkWeaponKilledBy" HorizontalAlignment="Center" TextWrapping="Wrap" Text="5.25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
-        <ComboBox HorizontalAlignment="Left" Margin="310,0,0,0" VerticalAlignment="Top" Width="280"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="280"/>
+        <ComboBox x:Name="coboxAliases" Margin="0,0,10,0" HorizontalAlignment="Right" Width="280" Height="22" VerticalAlignment="Top"/>
+        <TextBlock x:Name="tblkPlayerName" HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="280"/>
+        <TextBlock x:Name="tblkLastSeen" HorizontalAlignment="Right" Margin="0,30,10,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="239"/>
 
     </Grid>
 </UserControl>
