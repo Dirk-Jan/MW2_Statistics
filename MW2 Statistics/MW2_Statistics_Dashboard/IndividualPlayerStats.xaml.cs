@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,95 @@ namespace MW2_Statistics_Dashboard
     /// </summary>
     public partial class IndividualPlayerStats : UserControl
     {
+        private long mPlayerId;
         public IndividualPlayerStats()
         {
             InitializeComponent();
+        }
+
+        public void LoadPlayerInfoInControl(Player p)
+        {
+            mPlayerId = p.Id;
+            tblkPlayerName.Text = p.Aliasses[p.Aliasses.Count - 1];
+
+            tblkLastSeen.Text = "Last seen: " + p.LastSeen.ToString("dd-MM-yyyy HH:mm");
+
+            coboxAliases.ItemsSource = p.Aliasses;                  // Load aliases in combobox
+            coboxAliases.SelectedIndex = p.Aliasses.Count > 0 ? p.Aliasses.Count - 1 : 0;      // Set selected index to last
+
+            int kills = Database.GetKillCount(p.Id);
+            int deaths = Database.GetDeathCount(p.Id);
+            tblkKills.Text = kills.ToString();
+            tblkDeaths.Text = deaths.ToString();
+            if (deaths != 0)
+            {
+                double kdr = Math.Round((double)kills / (double)deaths, 2);
+                tblkKDR.Text = kdr.ToString();
+            }
+            else
+                tblkKDR.Text = "∞";
+
+            tblkHeadshots.Text = Database.GetHeadshotCount(p.Id).ToString();
+
+            string favouriteWepon = Database.GetFavouriteWeapon(p.Id);
+            imgFavouriteWeapon.Source = null;                               // Empty image, otherwise when favouriteWeapon is null or no image was fount in the for loop the image won't change
+            if (!String.IsNullOrEmpty(favouriteWepon))
+            {
+                Uri val = GetWeaponImageUri(favouriteWepon);
+                if(val != null)
+                    imgFavouriteWeapon.Source = new BitmapImage(val);
+            }
+
+            tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id);
+            tblkMostKilledBy.Text = Database.GetMostKilledByPlayerName(p.Id);
+
+            tblkLongestKillingSpree.Text = Database.GetLongestKillingSpree(p.Id).ToString();
+
+            //Weapon tab
+            lboxWeapons.ItemsSource = Database.GetWeapons(p.Id);
+            if (lboxWeapons.Items.Count > 0)
+                lboxWeapons.SelectedIndex = 0;
+        }
+
+        private Uri GetWeaponImageUri(string weaponName)
+        {
+            Uri value = null;
+            string imagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
+            string[] images = Directory.GetFiles(imagePath);
+            foreach (var item in images)
+            {
+                if (weaponName.Contains(System.IO.Path.GetFileNameWithoutExtension(item)))
+                {
+                    value = new Uri(item);
+                    break;
+                }
+            }
+            return value;
+        }
+
+        private void lboxWeapons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count < 1)
+            {
+                imgWeapon.Source = null;
+                tblkWeaponKills.Text = "-";
+                tblkWeaponHeadShots.Text = "-";
+                tblkWeaponKilledBy.Text = "-";
+            }
+            else
+            {
+                Weapon wep = (Weapon)e.AddedItems[0];
+
+                imgWeapon.Source = null;
+                Uri val = GetWeaponImageUri(wep.Name);
+                if (val != null)
+                    imgWeapon.Source = new BitmapImage(val);
+
+                tblkWeaponKills.Text = Database.GetKillCount(mPlayerId, wep.Id).ToString();
+                tblkWeaponHeadShots.Text = Database.GetHeadshotCount(mPlayerId, wep.Id).ToString();
+                tblkWeaponKilledBy.Text = Database.GetKilledByCount(mPlayerId, wep.Id).ToString();
+            }
+
         }
     }
 }

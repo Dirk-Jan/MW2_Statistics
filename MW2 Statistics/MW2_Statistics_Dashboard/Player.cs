@@ -25,7 +25,7 @@ namespace MW2_Statistics_Dashboard
 
         public override string ToString()
         {
-            return Aliasses[Aliasses.Count - 1] + " (" + LastSeen.ToString("HH:mm") + ")";
+            return Aliasses[Aliasses.Count - 1];
         }
     }
 }
