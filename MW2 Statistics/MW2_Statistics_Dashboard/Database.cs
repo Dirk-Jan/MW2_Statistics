@@ -11,6 +11,7 @@ namespace MW2_Statistics_Dashboard
 {
     public static class Database
     {
+        private static string uselessString;
         /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
                 "Initial Catalog=mw2stats";*/
