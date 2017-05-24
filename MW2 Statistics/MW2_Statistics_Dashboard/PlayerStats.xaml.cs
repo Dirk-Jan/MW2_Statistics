@@ -20,7 +20,7 @@ namespace MW2_Statistics_Dashboard
     /// </summary>
     public partial class PlayerStats : UserControl
     {
-        private List<Player> Players
+        public List<Player> Players
         {
             set
             {

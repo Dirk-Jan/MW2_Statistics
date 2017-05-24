@@ -27,15 +27,7 @@ namespace MW2_Statistics_Dashboard
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            lboxPlayers.ItemsSource = Database.GetPlayers();
-            if (lboxPlayers.Items.Count > 0)
-                lboxPlayers.SelectedIndex = 0;
-        }
-
-        private void lboxMatches_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Player p = (Player)e.AddedItems[0];
-            induvidualPlayerView.LoadPlayerInfoInControl(p);
+            psOverall.Players = Database.GetPlayers();
         }
     }
 }

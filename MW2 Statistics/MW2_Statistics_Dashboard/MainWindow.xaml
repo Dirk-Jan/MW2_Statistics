@@ -18,14 +18,12 @@
                     <DatePicker HorizontalAlignment="Left" Margin="127,10,0,0" VerticalAlignment="Top" Height="24" Width="102"/>
                     <TextBlock HorizontalAlignment="Left" Margin="117,14,0,0" TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Height="16" Width="5"/>
                     <ListBox HorizontalAlignment="Left" Margin="10,39,0,10" Width="219"/>
-                    <local:PlayerStats Grid.Column="1" Margin="0,40,0,0"/>
+                    <local:PlayerStats x:Name="psMainWindow"  Grid.Column="1" Margin="0,40,0,0"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Players">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="lboxPlayers" HorizontalAlignment="Left" Margin="10,39,0,10" Width="219" SelectionChanged="lboxMatches_SelectionChanged"/>
-                    <TextBox x:Name="tboxPlayerName" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="219"/>
-                    <local:IndividualPlayerStats x:Name="induvidualPlayerView" Margin="234,11,10,10"/>
+                    <local:PlayerStats x:Name="psOverall"/>
                 </Grid>
             </TabItem>
         </TabControl>
