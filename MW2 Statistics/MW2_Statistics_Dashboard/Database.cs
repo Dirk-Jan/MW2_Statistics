@@ -11,11 +11,12 @@ namespace MW2_Statistics_Dashboard
 {
     public static class Database
     {
-        /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        private static string uselessString;
+        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";*/
+                "Initial Catalog=mw2stats";
 
-        private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
 
         public static List<Match> GetMatches()
         {
