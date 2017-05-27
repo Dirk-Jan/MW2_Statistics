@@ -29,6 +29,7 @@ namespace MW2_Statistics_Dashboard
                     lboxPlayers.SelectedIndex = 0;
             }
         }
+        public Match Match { get; set; }
         public PlayerStats()
         {
             InitializeComponent();
@@ -36,8 +37,11 @@ namespace MW2_Statistics_Dashboard
 
         private void lboxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Player p = (Player)e.AddedItems[0];
-            induvidualPlayerView.LoadPlayerInfoInControl(p);
+            if (e.AddedItems.Count > 0)
+            {
+                Player p = (Player)e.AddedItems[0];
+                induvidualPlayerView.LoadPlayerInfoInControl(p, Match);
+            }
         }
     }
 }

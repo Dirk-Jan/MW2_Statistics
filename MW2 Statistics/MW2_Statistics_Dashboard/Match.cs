@@ -21,15 +21,18 @@ namespace MW2_Statistics_Dashboard
             get { return DateTime.FromBinary(mDateTimeStop); }
         }
 
-        public Match(long dateTimeStart, long dateTimeStop)
+        public Match(int matchId, long dateTimeStart, long dateTimeStop)
         {
+            MatchId = matchId;
             mDateTimeStart = dateTimeStart;
             mDateTimeStop = dateTimeStop;
         }
 
         public override string ToString()
         {
-            return DateTimeStart.ToString("HH:mm") + " - " + DateTimeStop.ToString("HH:mm");
+            if (MatchId == -1)   // This instance is a date label for the listbox
+                return "--==   " + DateTimeStart.ToString("dd-MM-yyyy") + "   ==--";
+            return DateTimeStart.ToString("HH:mm") + " -- " + DateTimeStop.ToString("HH:mm");
         }
     }
 }
