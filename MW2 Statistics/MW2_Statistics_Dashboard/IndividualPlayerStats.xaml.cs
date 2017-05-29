@@ -22,14 +22,17 @@ namespace MW2_Statistics_Dashboard
     public partial class IndividualPlayerStats : UserControl
     {
         private long mPlayerId;
+        private Match mMatch;
         public IndividualPlayerStats()
         {
             InitializeComponent();
         }
 
-        public void LoadPlayerInfoInControl(Player p)
+        public void LoadPlayerInfoInControl(Player p, Match match)
         {
             mPlayerId = p.Id;
+            mMatch = match;
+
             tblkPlayerName.Text = p.Aliasses[p.Aliasses.Count - 1];
 
             tblkLastSeen.Text = "Last seen: " + p.LastSeen.ToString("dd-MM-yyyy HH:mm");
@@ -37,8 +40,8 @@ namespace MW2_Statistics_Dashboard
             coboxAliases.ItemsSource = p.Aliasses;                  // Load aliases in combobox
             coboxAliases.SelectedIndex = p.Aliasses.Count > 0 ? p.Aliasses.Count - 1 : 0;      // Set selected index to last
 
-            int kills = Database.GetKillCount(p.Id);
-            int deaths = Database.GetDeathCount(p.Id);
+            int kills = Database.GetKillCount(p.Id, mMatch);
+            int deaths = Database.GetDeathCount(p.Id, mMatch);
             tblkKills.Text = kills.ToString();
             tblkDeaths.Text = deaths.ToString();
             if (deaths != 0)
@@ -49,9 +52,9 @@ namespace MW2_Statistics_Dashboard
             else
                 tblkKDR.Text = "∞";
 
-            tblkHeadshots.Text = Database.GetHeadshotCount(p.Id).ToString();
+            tblkHeadshots.Text = Database.GetHeadshotCount(p.Id, mMatch).ToString();
 
-            string favouriteWepon = Database.GetFavouriteWeapon(p.Id);
+            string favouriteWepon = Database.GetFavouriteWeapon(p.Id, mMatch);
             imgFavouriteWeapon.Source = null;                               // Empty image, otherwise when favouriteWeapon is null or no image was fount in the for loop the image won't change
             if (!String.IsNullOrEmpty(favouriteWepon))
             {
@@ -60,13 +63,13 @@ namespace MW2_Statistics_Dashboard
                     imgFavouriteWeapon.Source = new BitmapImage(val);
             }
 
-            tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id);
-            tblkMostKilledBy.Text = Database.GetMostKilledByPlayerName(p.Id);
+            tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id, mMatch);
+            tblkMostKilledBy.Text = Database.GetMostKilledByPlayerName(p.Id, mMatch);
 
-            tblkLongestKillingSpree.Text = Database.GetLongestKillingSpree(p.Id).ToString();
+            tblkLongestKillingSpree.Text = Database.GetLongestKillingSpree(p.Id, mMatch).ToString();
 
             //Weapon tab
-            lboxWeapons.ItemsSource = Database.GetWeapons(p.Id);
+            lboxWeapons.ItemsSource = Database.GetWeapons(p.Id, mMatch);
             if (lboxWeapons.Items.Count > 0)
                 lboxWeapons.SelectedIndex = 0;
         }
@@ -105,9 +108,9 @@ namespace MW2_Statistics_Dashboard
                 if (val != null)
                     imgWeapon.Source = new BitmapImage(val);
 
-                tblkWeaponKills.Text = Database.GetKillCount(mPlayerId, wep.Id).ToString();
-                tblkWeaponHeadShots.Text = Database.GetHeadshotCount(mPlayerId, wep.Id).ToString();
-                tblkWeaponKilledBy.Text = Database.GetKilledByCount(mPlayerId, wep.Id).ToString();
+                tblkWeaponKills.Text = Database.GetKillCount(mPlayerId, wep.Id, mMatch).ToString();
+                tblkWeaponHeadShots.Text = Database.GetHeadshotCount(mPlayerId, wep.Id, mMatch).ToString();
+                tblkWeaponKilledBy.Text = Database.GetKilledByCount(mPlayerId, wep.Id, mMatch).ToString();
             }
 
         }
