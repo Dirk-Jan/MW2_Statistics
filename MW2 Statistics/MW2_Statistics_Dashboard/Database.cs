@@ -11,22 +11,59 @@ namespace MW2_Statistics_Dashboard
 {
     public static class Database
     {
-        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";
+                "Initial Catalog=mw2stats";*/
 
-        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
 
+        public static List<Match> AddDataLabelsToMatchesList(List<Match> matches)
+        {
+            //matches.Insert(0, new Match(-1, DateTime.Now.ToBinary(), DateTime.Now.ToBinary()));
+
+            DateTime lastDate = DateTime.MaxValue;
+            for (int i = 0; i < matches.Count; i++)
+            {
+                if (lastDate.Date != matches[i].DateTimeStart.Date)
+                {
+                    lastDate = matches[i].DateTimeStart;
+                    matches.Insert(i, new Match(-1, lastDate.ToBinary(), lastDate.ToBinary()));
+                }
+            }
+            return matches;
+        }
         public static List<Match> GetMatches()
         {
+            return GetMatches(false, 0, 0);
+        }
+        public static List<Match> GetMatches(long rangeStart, long rangeStop)
+        {
+            return GetMatches(true, rangeStart, rangeStop);
+        }
+        private static List<Match> GetMatches(bool applyRange, long rangeStart, long rangeStop)
+        {
             var list = new List<Match>();
-            string query = "SELECT * FROM Match ORDER BY id DESC;";
+            string query;
+            if(!applyRange)
+            {
+                query = "SELECT * FROM Match ORDER BY id DESC;";
+            }
+            else
+            {
+                query = "SELECT * FROM Match WHERE TimeStart BETWEEN @RangeStart AND @RangeStop ORDER BY id DESC;";
+            }
 
             using (SqlConnection connection = new SqlConnection(mConnectionString))
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
             {
                 connection.Open();
-                
+
+                if (applyRange)
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@RangeStart", rangeStart);
+                    adapter.SelectCommand.Parameters.AddWithValue("@RangeStop", rangeStop);
+                }
+
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
@@ -45,18 +82,26 @@ namespace MW2_Statistics_Dashboard
             }
             return list;
         }
-
-        #region Match specific player stats
-        /*public static List<Player> GetPlayers(int matchId)
+        #region Overal Player Stats
+        public static List<Player> GetPlayersWithFilter(Match match, string filterValue)
         {
             var list = new List<Player>();
-            string query = "SELECT * FROM Player WHERE id IN (SELECT PlayerId FROM Alias WHERE MatchId = @MatchId);";
+            string query;
+            if (match == null)
+                query = "SELECT * FROM Player p WHERE id IN (SELECT PlayerId FROM Alias WHERE PlayerName LIKE '%'+@FilterValue+'%');";
+            else
+                query = "SELECT * FROM Player p WHERE id IN (SELECT PlayerId FROM Alias WHERE MatchId = @MatchId AND PlayerName LIKE '%'+@FilterValue+'%');";
 
             using (SqlConnection connection = new SqlConnection(mConnectionString))
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
             {
                 connection.Open();
-                adapter.SelectCommand.Parameters.AddWithValue("@MatchId", matchId);
+
+                adapter.SelectCommand.Parameters.AddWithValue("@FilterValue", filterValue);
+                if (match != null)
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
+                }
 
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -71,9 +116,8 @@ namespace MW2_Statistics_Dashboard
                 }
             }
             return list;
-        }*/
-        #endregion
-        #region Overal Player Stats
+        }
+
         public static List<Player> GetPlayers(Match match)
         {
             var list = new List<Player>();

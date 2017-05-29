@@ -43,5 +43,10 @@ namespace MW2_Statistics_Dashboard
                 induvidualPlayerView.LoadPlayerInfoInControl(p, Match);
             }
         }
+
+        private void tboxPlayerName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Players = Database.GetPlayersWithFilter(Match, tboxPlayerName.Text);
+        }
     }
 }

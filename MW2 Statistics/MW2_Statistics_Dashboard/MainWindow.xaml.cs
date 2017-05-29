@@ -28,17 +28,7 @@ namespace MW2_Statistics_Dashboard
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             var matches = Database.GetMatches();
-            matches.Insert(0, new Match(-1, DateTime.Now.ToBinary(), DateTime.Now.ToBinary()));
-
-            DateTime lastDate = DateTime.Now;
-            for (int i = 0; i < matches.Count; i++)
-            {
-                if(lastDate.Date != matches[i].DateTimeStart.Date)
-                {
-                    lastDate = matches[i].DateTimeStart;
-                    matches.Insert(i, new Match(-1, lastDate.ToBinary(), lastDate.ToBinary()));
-                }
-            }
+            Database.AddDataLabelsToMatchesList(matches);
             lboxMatches.ItemsSource = matches;
 
             psOverall.Match = null;                             // For the database methods
@@ -53,6 +43,16 @@ namespace MW2_Statistics_Dashboard
                 psMainWindow.Match = m;                         // For the database methods
                 psMainWindow.Players = Database.GetPlayers(m);
             }
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            if (dpRangeStart.SelectedDate.HasValue && dpRangeStop.SelectedDate.HasValue)
+            {
+                lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches(dpRangeStart.SelectedDate.Value.ToBinary(), dpRangeStop.SelectedDate.Value.ToBinary()));
+            }
+            else
+                lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches());
         }
     }
 }
