@@ -9,11 +9,11 @@ namespace MW2_Statistics
 {
     public static class DataBase
     {
-        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";
+                "Initial Catalog=mw2stats";*/
 
-        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
 
         // Should I get the playerId from the db and save it in a var and use it for further queries or use a subquery in each query?
         //
@@ -112,12 +112,12 @@ namespace MW2_Statistics
 
         public static void AddPlayerAlias(string alias, long playerId, int matchId)
         {
-            if (matchId != -1)          // The host quits after the exit level line   so GetCurrentMatchId returns -1                   Do this check in the mw2eventhandler class
+            /*if (matchId != -1)          // The host quits after the exit level line   so GetCurrentMatchId returns -1                   Do this check in the mw2eventhandler class
                   /*8:51 ExitLevel: executed
                     8:51 Q; 0110000102e85117; 2; Ghost~
                     8:51 ShutdownGame:
                     8:51------------------------------------------------------------*/
-            {
+            //{
                 string query = "INSERT INTO Alias (PlayerId, MatchId, PlayerName) " +
                     "VALUES (@PlayerId, @MatchId, @PlayerName);";
 
@@ -131,7 +131,7 @@ namespace MW2_Statistics
 
                     command.ExecuteNonQuery();
                 }
-            }
+            //}
         }
         #endregion
         #region Match

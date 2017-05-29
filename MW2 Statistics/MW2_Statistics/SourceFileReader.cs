@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,8 @@ namespace MW2_Statistics
     {
         private const string mReadFile = "readfile";
         //private static string mHostFilePath = @"C:\Program Files (x86)\Steam\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
-        //private static string mHostFilePath = @"C:\Users\Dirk-Jan de Beijer\Desktop\logSimulation\games_mp.log";
-        private static string mHostFilePath = @"E:\SteamLibrary\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
+        private static string mHostFilePath = @"C:\Users\Dirk-Jan de Beijer\Desktop\games_mp.log";
+        //private static string mHostFilePath = @"E:\SteamLibrary\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
         private static string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         public static void CollectFeed()
@@ -48,10 +49,10 @@ namespace MW2_Statistics
             while (feed != null)
             {
                 linesRead++;
-                if (feed == string.Empty)
+                if (feed.Trim() == string.Empty)
                     continue;
                 // Get the data from the feed and put it in the database
-                Console.WriteLine(feed);
+                Debug.WriteLine("Feed(" + linesRead + "):" + feed);
                 MW2Event mw2Event = new MW2Event(feed);
                 MW2EventHandler.HandleMW2Event(mw2Event);
                 //Feed.Add(mw2Event.getKillFeed());

@@ -13,6 +13,8 @@ namespace MW2_Statistics
             get { return DataBase.GetCurrentMatchId(); }
         }
 
+        private static bool mWaitingforEndMatch = false;    // When exitlevel: executed appears we need to wait with ending the match and to wait till the line ------------- appears, because we need to handle events between those lines
+
         public static void HandleMW2Event(MW2Event e)
         {
             //if (mMatchId == -1 && e.Type != "initgame")     // If we start become host after hostmigration
@@ -21,15 +23,25 @@ namespace MW2_Statistics
             switch (e.Type)
             {
                 case "initgame":
-                    if (e.Timestamp == "0:00")    // New match began
+                    /*if (e.Timestamp == "0:00")    // New match began
                     {
                         //MatchId = DataBase.RegisterNewMatch();
                         DataBase.RegisterNewMatch();
-                    }
+                    }*/
+                    if (MatchId == -1)
+                        DataBase.RegisterNewMatch();
                     break;
                 case "exitlevel: executed":         // Match has finished
-                    DataBase.EndMatch(MatchId);
+                    //DataBase.EndMatch(MatchId);
+                    mWaitingforEndMatch = true;
                     //MatchId = -1;
+                    break;
+                case "------------------------------------------------------------":
+                    if (mWaitingforEndMatch)
+                    {
+                        mWaitingforEndMatch = false;
+                        DataBase.EndMatch(MatchId);
+                    }
                     break;
                 case "j":
                 case "q":
