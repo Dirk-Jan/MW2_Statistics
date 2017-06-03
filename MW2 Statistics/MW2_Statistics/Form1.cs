@@ -32,7 +32,7 @@ namespace MW2_Statistics
         private void btnTimeToLong_Click(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
-            long now = dt.ToBinary();
+            long now = dt.Ticks;
             MessageBox.Show(now.ToString());
         }
 

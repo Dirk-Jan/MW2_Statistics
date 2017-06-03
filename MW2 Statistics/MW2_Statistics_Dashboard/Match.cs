@@ -13,12 +13,12 @@ namespace MW2_Statistics_Dashboard
         public int MatchId { get; set; }
         public DateTime DateTimeStart
         {
-            get { return DateTime.FromBinary(mDateTimeStart); }
+            get { return new DateTime(mDateTimeStart); }
         }
 
         public DateTime DateTimeStop
         {
-            get { return DateTime.FromBinary(mDateTimeStop); }
+            get { return new DateTime(mDateTimeStop); }
         }
 
         public Match(int matchId, long dateTimeStart, long dateTimeStop)

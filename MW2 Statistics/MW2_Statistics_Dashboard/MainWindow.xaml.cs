@@ -49,7 +49,7 @@ namespace MW2_Statistics_Dashboard
         {
             if (dpRangeStart.SelectedDate.HasValue && dpRangeStop.SelectedDate.HasValue)
             {
-                lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches(dpRangeStart.SelectedDate.Value.ToBinary(), dpRangeStop.SelectedDate.Value.ToBinary()));
+                lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches(dpRangeStart.SelectedDate.Value.Ticks, dpRangeStop.SelectedDate.Value.Ticks));
             }
             else
                 lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches());

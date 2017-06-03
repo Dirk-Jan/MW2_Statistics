@@ -9,11 +9,11 @@ namespace MW2_Statistics
 {
     public static class DataBase
     {
-        /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";*/
+                "Initial Catalog=mw2stats";
 
-        private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
 
         // Should I get the playerId from the db and save it in a var and use it for further queries or use a subquery in each query?
         //
@@ -52,7 +52,7 @@ namespace MW2_Statistics
             {
                 connection.Open();
                 command.Parameters.AddWithValue("@SteamId", convertedSteamId);
-                command.Parameters.AddWithValue("@LastSeen", DateTime.Now.ToBinary());
+                command.Parameters.AddWithValue("@LastSeen", DateTime.Now.Ticks);
                 
                 command.ExecuteNonQuery();
             }
@@ -70,7 +70,7 @@ namespace MW2_Statistics
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 connection.Open();
-                command.Parameters.AddWithValue("@LastSeen", DateTime.Now.ToBinary());
+                command.Parameters.AddWithValue("@LastSeen", DateTime.Now.Ticks);
                 command.Parameters.AddWithValue("@PlayerId", playerId);
 
                 command.ExecuteNonQuery();
@@ -146,7 +146,7 @@ namespace MW2_Statistics
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 connection.Open();
-                command.Parameters.AddWithValue("@TimeStart", DateTime.Now.ToBinary());
+                command.Parameters.AddWithValue("@TimeStart", DateTime.Now.Ticks);
 
                 //command.ExecuteNonQuery();
                 object obj = command.ExecuteScalar();
@@ -166,7 +166,7 @@ namespace MW2_Statistics
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 connection.Open();
-                command.Parameters.AddWithValue("@TimeStop", DateTime.Now.ToBinary());
+                command.Parameters.AddWithValue("@TimeStop", DateTime.Now.Ticks);
                 command.Parameters.AddWithValue("@MatchId", matchId);
 
                 command.ExecuteNonQuery();

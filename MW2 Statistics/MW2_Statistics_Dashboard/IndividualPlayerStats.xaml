@@ -30,6 +30,14 @@
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="KDR" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
                         <TextBlock x:Name="tblkKDR" HorizontalAlignment="Center" TextWrapping="Wrap" Text="5.25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
 
+                        <!--<StackPanel Grid.Column="3">
+                            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Favourite Weapon" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3"/>
+                            <Image x:Name="imgFavouriteWeapon" />
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="imgAtt1"/>
+                                <Image x:Name="imgAtt2"/>
+                            </StackPanel>
+                        </StackPanel>-->
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Favourite Weapon" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3"/>
                         <Image x:Name="imgFavouriteWeapon" Margin="10,26,10,0" Grid.Column="3"/>
                     </Grid>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MW2_Statistics", "MW2_Stati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MW2_Statistics_Dashboard", "MW2_Statistics_Dashboard\MW2_Statistics_Dashboard.csproj", "{7A035CE3-2DEB-459E-9CDA-BBEBF2266888}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MW2_Statistics_DataCollector", "MW2_Statistics_DataCollector\MW2_Statistics_DataCollector.csproj", "{157A93B9-A6C1-4FF8-B74C-A59CD8EA5D18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7A035CE3-2DEB-459E-9CDA-BBEBF2266888}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A035CE3-2DEB-459E-9CDA-BBEBF2266888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A035CE3-2DEB-459E-9CDA-BBEBF2266888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157A93B9-A6C1-4FF8-B74C-A59CD8EA5D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157A93B9-A6C1-4FF8-B74C-A59CD8EA5D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157A93B9-A6C1-4FF8-B74C-A59CD8EA5D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157A93B9-A6C1-4FF8-B74C-A59CD8EA5D18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

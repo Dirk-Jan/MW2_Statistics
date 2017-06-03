@@ -11,23 +11,21 @@ namespace MW2_Statistics_Dashboard
 {
     public static class Database
     {
-        /*private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";*/
+                "Initial Catalog=mw2stats";
 
-        private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
 
         public static List<Match> AddDataLabelsToMatchesList(List<Match> matches)
         {
-            //matches.Insert(0, new Match(-1, DateTime.Now.ToBinary(), DateTime.Now.ToBinary()));
-
             DateTime lastDate = DateTime.MaxValue;
             for (int i = 0; i < matches.Count; i++)
             {
                 if (lastDate.Date != matches[i].DateTimeStart.Date)
                 {
                     lastDate = matches[i].DateTimeStart;
-                    matches.Insert(i, new Match(-1, lastDate.ToBinary(), lastDate.ToBinary()));
+                    matches.Insert(i, new Match(-1, lastDate.Ticks, lastDate.Ticks));
                 }
             }
             return matches;
