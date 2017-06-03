@@ -24,5 +24,15 @@ namespace MW2_Statistics_DataCollector
         {
             InitializeComponent();
         }
+
+        private void btnBrowse_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCollectData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

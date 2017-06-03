@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MW2_Statistics_DataCollector"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MW2 Statistics - Data Collector" Height="110" Width="525">
     <Grid>
-        
+        <TextBlock HorizontalAlignment="Left" Margin="10,11,0,0" TextWrapping="Wrap" Text="MW2 Hostfile path: " VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="120,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="358" IsReadOnly="True"/>
+        <Button x:Name="btnBrowse" Content="..." HorizontalAlignment="Left" Margin="483,11,0,0" VerticalAlignment="Top" Width="24" Height="24" Click="btnBrowse_Click"/>
+        <Button x:Name="btnCollectData" Content="Start collecting data" HorizontalAlignment="Left" Margin="10,0,0,10" Width="497" Height="24" VerticalAlignment="Bottom" Click="btnCollectData_Click"/>
     </Grid>
 </Window>

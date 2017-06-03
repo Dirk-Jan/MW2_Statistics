@@ -30,6 +30,8 @@ namespace MW2_Statistics_Dashboard
             var matches = Database.GetMatches();
             Database.AddDataLabelsToMatchesList(matches);
             lboxMatches.ItemsSource = matches;
+            if (matches.Count > 1)
+                lboxMatches.SelectedIndex = 1;
 
             psOverall.Match = null;                             // For the database methods
             psOverall.Players = Database.GetPlayers(null);
@@ -53,6 +55,9 @@ namespace MW2_Statistics_Dashboard
             }
             else
                 lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches());
+
+            if (lboxMatches.Items.Count > 1)
+                lboxMatches.SelectedIndex = 1;
         }
     }
 }

@@ -20,14 +20,18 @@ namespace MW2_Statistics
             //if (mMatchId == -1 && e.Type != "initgame")     // If we start become host after hostmigration
             //    return;
 
+            // When you leave game as host:
+            //  0:26 ShutdownGame:
+            //  0:26------------------------------------------------------------
+
             switch (e.Type)
             {
                 case "initgame":
-                    /*if (e.Timestamp == "0:00")    // New match began
+                    if (e.Timestamp == "0:00")    // New match began
                     {
-                        //MatchId = DataBase.RegisterNewMatch();
-                        DataBase.RegisterNewMatch();
-                    }*/
+                        if (MatchId != -1)
+                            DataBase.EndMatch(MatchId); // When you are host and you leave, the match won't be ended by this application. Can't read that from the "games_mp.log" file.
+                    }
                     if (MatchId == -1)
                         DataBase.RegisterNewMatch();
                     break;

@@ -11,9 +11,12 @@ namespace MW2_Statistics_Dashboard
         public int Id { get; set; }
         public string Name { get; set; }
         public string CleanName { get; set; }
-        public string WeaponImage { get; set; }
-        public string AttachmentImage1 { get; set; }
-        public string AttachmentImage2 { get; set; }
+        private string mWeaponImage;
+        public string WeaponImage { get { return mWeaponImage + ".png"; } }
+        private string mAttachmentImage1;
+        public string AttachmentImage1 { get { return mAttachmentImage1 + ".png"; } }
+        private string mAttachmentImage2;
+        public string AttachmentImage2 { get { return mAttachmentImage2 + ".png"; } }
 
 
 
@@ -21,6 +24,7 @@ namespace MW2_Statistics_Dashboard
         {
             Id = id;
             Name = name;
+            GetCleanName(name);
         }
 
         public override string ToString()
@@ -141,21 +145,22 @@ namespace MW2_Statistics_Dashboard
                 new MW2Weapon { TechnicalName = "thermal", CleanName = "Thermal", ImageName = "thermal" },
                 new MW2Weapon { TechnicalName = "xmags", CleanName = "Extended Mags", ImageName = "xmags" },
                 new MW2Weapon { TechnicalName = "rof", CleanName = "Rapid Fire", ImageName = "rof" },
-                new MW2Weapon { TechnicalName = "akimbo", CleanName = "Akimbo", ImageName = "akimmbo" },
+                new MW2Weapon { TechnicalName = "akimbo", CleanName = "Akimbo", ImageName = "akimbo" },
                 new MW2Weapon { TechnicalName = "grip", CleanName = "Grip", ImageName = "grip" },
+                new MW2Weapon { TechnicalName = "tactical", CleanName = "Tactical Knife", ImageName = "tactical" },
             };
 
             string cleanName = string.Empty;
             if(name.Substring(0,3) == "gl_")            // Underbarrel grenade launcher used
             {
                 cleanName += "Grenade Launcher attached to ";
-                WeaponImage = "gl";
+                mWeaponImage = "gl";
                 foreach(var item in weaponsWithAttachments)
                 {
                     if (name.Contains(item.TechnicalName))
                     {
                         cleanName += item.CleanName;
-                        AttachmentImage1 = item.ImageName;
+                        mAttachmentImage1 = item.ImageName;
                         break;
                     }
                 }
@@ -163,13 +168,13 @@ namespace MW2_Statistics_Dashboard
             else if(name.Contains("shotgun_attach"))    // Underbarrel shotgun used
             {
                 cleanName += "Shotgun attached to ";
-                WeaponImage = "shotgun";
+                mWeaponImage = "shotgun";
                 foreach (var item in weaponsWithAttachments)
                 {
                     if (name.Contains(item.TechnicalName))
                     {
                         cleanName += item.CleanName;
-                        AttachmentImage1 = item.ImageName;
+                        mAttachmentImage1 = item.ImageName;
                         break;
                     }
                 }
@@ -181,7 +186,7 @@ namespace MW2_Statistics_Dashboard
                     if(name.Contains(item.TechnicalName))
                     {
                         cleanName += item.CleanName;
-                        WeaponImage = item.ImageName;
+                        mWeaponImage = item.ImageName;
                         int attachmentCount = name.Split('_').Length - 2;   // -2 Because we throw away the <weaponName> and the "_mp"
                         if(attachmentCount > 0)
                         {
@@ -194,9 +199,9 @@ namespace MW2_Statistics_Dashboard
                                     cleanName += att.CleanName;
 
                                     if (attachmentsAddedToName == 0)
-                                        AttachmentImage1 = att.ImageName;
+                                        mAttachmentImage1 = att.ImageName;
                                     else
-                                        AttachmentImage2 = att.ImageName;
+                                        mAttachmentImage2 = att.ImageName;
 
                                     attachmentsAddedToName++;
                                     if (attachmentsAddedToName >= attachmentCount)
@@ -215,7 +220,7 @@ namespace MW2_Statistics_Dashboard
                         if(name.Contains(item.TechnicalName))
                         {
                             cleanName += item.CleanName;
-                            WeaponImage = item.ImageName;
+                            mWeaponImage = item.ImageName;
                             break;
                         }
                     }

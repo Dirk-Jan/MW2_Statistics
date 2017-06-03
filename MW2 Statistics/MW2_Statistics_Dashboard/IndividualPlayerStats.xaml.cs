@@ -23,6 +23,8 @@ namespace MW2_Statistics_Dashboard
     {
         private long mPlayerId;
         private Match mMatch;
+
+        private string mImagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
         public IndividualPlayerStats()
         {
             InitializeComponent();
@@ -55,12 +57,28 @@ namespace MW2_Statistics_Dashboard
             tblkHeadshots.Text = Database.GetHeadshotCount(p.Id, mMatch).ToString();
 
             string favouriteWepon = Database.GetFavouriteWeapon(p.Id, mMatch);
-            imgFavouriteWeapon.Source = null;                               // Empty image, otherwise when favouriteWeapon is null or no image was fount in the for loop the image won't change
-            if (!String.IsNullOrEmpty(favouriteWepon))
+            tblkFavWepName.Text = "";
+            imgFavouriteWeapon.Source = null;                               // Empty image, otherwise when favouriteWeapon is null or no image was found in the for loop the image won't change
+            /*if (!String.IsNullOrEmpty(favouriteWepon))
             {
                 Uri val = GetWeaponImageUri(favouriteWepon);
                 if(val != null)
                     imgFavouriteWeapon.Source = new BitmapImage(val);
+            }*/
+            imgFavWepAttachment1.Source = null;
+            imgFavWepAttachment2.Source = null;
+            if (!String.IsNullOrEmpty(favouriteWepon))
+            {
+                Weapon wep = new Weapon(-1, favouriteWepon);
+                tblkFavWepName.Text = wep.CleanName;
+                if(File.Exists(mImagePath + wep.WeaponImage))
+                    imgFavouriteWeapon.Source = new BitmapImage(new Uri(mImagePath + wep.WeaponImage));
+                
+                if (wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+                    imgFavWepAttachment1.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage1));
+                
+                if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+                    imgFavWepAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
             }
 
             tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id, mMatch);
@@ -104,9 +122,17 @@ namespace MW2_Statistics_Dashboard
                 Weapon wep = (Weapon)e.AddedItems[0];
 
                 imgWeapon.Source = null;
-                Uri val = GetWeaponImageUri(wep.Name);
+                /*Uri val = GetWeaponImageUri(wep.Name);
                 if (val != null)
-                    imgWeapon.Source = new BitmapImage(val);
+                    imgWeapon.Source = new BitmapImage(val);*/
+                if (File.Exists(mImagePath + wep.WeaponImage))
+                    imgWeapon.Source = new BitmapImage(new Uri(mImagePath + wep.WeaponImage));
+                imgAttachment1.Source = null;
+                if(wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+                    imgAttachment1.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage1));
+                imgAttachment2.Source = null;
+                if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+                    imgAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
 
                 tblkWeaponKills.Text = Database.GetKillCount(mPlayerId, wep.Id, mMatch).ToString();
                 tblkWeaponHeadShots.Text = Database.GetHeadshotCount(mPlayerId, wep.Id, mMatch).ToString();
