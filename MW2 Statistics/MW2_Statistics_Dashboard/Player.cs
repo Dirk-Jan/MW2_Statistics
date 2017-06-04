@@ -16,13 +16,6 @@ namespace MW2_Statistics_Dashboard
         }
         public List<string> Aliasses { get; set; }
 
-        public Player(long id, long lastSeen)
-        {
-            Id = id;
-            mDateTimeLastSeen = lastSeen;
-            Aliasses = Database.GetAliasses(id, null);
-        }
-
         public Player(long id, long lastSeen, Match match)
         {
             Id = id;

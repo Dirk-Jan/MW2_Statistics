@@ -10,10 +10,6 @@ namespace MW2_Statistics
 {
     public static class SourceFileReader
     {
-        //private const string mReadFile = "readfile";
-        //private static string mHostFilePath = @"C:\Program Files (x86)\Steam\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
-        //private static string mHostFilePath = @"C:\Users\Dirk-Jan de Beijer\Desktop\games_mp.log";
-        //private static string hostFilePath = @"E:\SteamLibrary\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
         private static string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         public static void CollectFeed(string hostFilePath)
@@ -54,11 +50,11 @@ namespace MW2_Statistics
                 linesRead++;
                 if (feed.Trim() == string.Empty)
                     continue;
+
                 // Get the data from the feed and put it in the database
                 Debug.WriteLine("Feed(" + linesRead + "):" + feed);
                 MW2Event mw2Event = new MW2Event(feed);
                 MW2EventHandler.HandleMW2Event(mw2Event);
-                //Feed.Add(mw2Event.getKillFeed());
 
                 feed = sr.ReadLine();
             }

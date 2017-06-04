@@ -36,9 +36,7 @@ namespace MW2_Statistics
                         DataBase.RegisterNewMatch();
                     break;
                 case "exitlevel: executed":         // Match has finished
-                    //DataBase.EndMatch(MatchId);
                     mWaitingforEndMatch = true;
-                    //MatchId = -1;
                     break;
                 case "------------------------------------------------------------":
                     if (mWaitingforEndMatch)

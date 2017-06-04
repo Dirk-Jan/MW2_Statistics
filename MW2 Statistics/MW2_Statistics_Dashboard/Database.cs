@@ -444,7 +444,7 @@ namespace MW2_Statistics_Dashboard
             }
             return maxKillingSpree;
         }
-        #region Weapon Tab
+        #region Weapons Tab
         public static List<Weapon> GetWeapons(long playerId, Match match)
         {
             var list = new List<Weapon>();
