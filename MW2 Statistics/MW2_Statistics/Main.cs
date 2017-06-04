@@ -19,8 +19,6 @@ namespace MW2_Statistics
 
         private Thread mCollectorThread = null;
         private bool mKeepReading = true;
-
-        private bool mColleting = false;
         private bool mExitedThread = true;
 
         public Main()
@@ -41,34 +39,20 @@ namespace MW2_Statistics
 
         private void btnCollect_Click(object sender, EventArgs e)
         {
-            if(!mColleting)
+            if (!mHostFilePath.Contains("games_mp.log"))
             {
-                if(mExitedThread)
-                {
-                    if (!mHostFilePath.Contains("games_mp.log"))
-                    {
-                        MessageBox.Show("Please locate the \"games_mp.log\" file on your computer. It's found in <MW2 root>/main/.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        mColleting = true;
-                        btnBrowse.Enabled = false;
-                        btnCollect.Text = "Stop collecting data";
-
-                        mExitedThread = false;
-                        mCollectorThread = new Thread(new ThreadStart(CollectFeed));
-                        mCollectorThread.Start();
-                    }
-                }
+                MessageBox.Show("Please locate the \"games_mp.log\" file on your computer. It's found in <MW2 root>/main/.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                mColleting = false;
-                btnBrowse.Enabled = true;
-                btnCollect.Text = "Start collecting data";
-                mKeepReading = false;
+                btnBrowse.Enabled = false;
+                btnCollect.Enabled = false;
+                btnCollect.Text = "Collecting data ...";
+
+                mExitedThread = false;
+                mCollectorThread = new Thread(new ThreadStart(CollectFeed));
+                mCollectorThread.Start();
             }
-            
         }
 
         private void CollectFeed()
