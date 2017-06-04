@@ -354,6 +354,42 @@ namespace MW2_Statistics_Dashboard
             return name;
         }
 
+        public static Player GetMostKilledPlayer(long playerId, Match match)
+        {
+            string query;
+            if (match == null)
+            {
+                query = "SELECT t.WeaponId, w.Name FROM(SELECT DISTINCT WeaponId FROM Hit WHERE PlayerId_Attacker = @PlayerId AND FinalBlow = 1) t, Weapon w WHERE t.WeaponId = w.id";
+            }
+            else
+            {
+                query = "SELECT t.WeaponId, w.Name FROM(SELECT DISTINCT WeaponId FROM Hit WHERE MatchId = @MatchId AND PlayerId_Attacker = @PlayerId AND FinalBlow = 1) t, Weapon w WHERE t.WeaponId = w.id";
+            }
+
+            using (SqlConnection connection = new SqlConnection(mConnectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+            {
+                connection.Open();
+
+                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", playerId);
+                if (match != null)
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
+                }
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    int id = Convert.ToInt32(dt.Rows[i]["WeaponId"]);
+                    string name = (string)dt.Rows[i]["Name"];
+
+                    list.Add(new Weapon(id, name));
+                }
+            }
+        }
+
         public static string GetMostKilledByPlayerName(long playerId, Match match)
         {
             string name;
@@ -383,6 +419,11 @@ namespace MW2_Statistics_Dashboard
             if (String.IsNullOrEmpty(name))
                 name = "No-one";
             return name;
+        }
+
+        public static Player GetMostKilledByPlayer(long playerId, Match match)
+        {
+
         }
 
         public static int GetLongestKillingSpree(long playerId, Match match)

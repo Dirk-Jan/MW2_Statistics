@@ -72,10 +72,10 @@
                         <TextBlock x:Name="tblkHeadshots" HorizontalAlignment="Center" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="1" Margin="0,26,0,0"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Most Killed" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
-                        <TextBlock x:Name="tblkMostKilled" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alibaba" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkMostKilled" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alibaba" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="2" Margin="0,26,0,0" MouseUp="tblkName_MouseUp"/>
 
                         <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Most Killed By" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3"/>
-                        <TextBlock x:Name="tblkMostKilledBy" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Danny" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3" Margin="0,26,0,0"/>
+                        <TextBlock x:Name="tblkMostKilledBy" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Danny" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.Column="3" Margin="0,26,0,0" MouseUp="tblkName_MouseUp"/>
                     </Grid>
                 </Grid>
             </TabItem>

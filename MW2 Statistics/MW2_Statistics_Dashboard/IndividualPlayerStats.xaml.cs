@@ -140,5 +140,17 @@ namespace MW2_Statistics_Dashboard
             }
 
         }
+
+        public delegate void NameClickedEventHandler(Player player);
+        public event NameClickedEventHandler NameClicked;
+        protected virtual void OnNameClicked(Player player)
+        {
+            NameClicked?.Invoke(player);
+        }
+
+        private void tblkName_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
     }
 }
