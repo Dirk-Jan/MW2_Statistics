@@ -102,6 +102,9 @@ namespace MW2_Statistics_Dashboard
                 new MW2Weapon { TechnicalName = "javelin", CleanName = "Javelin", ImageName = "javelin" },
                 new MW2Weapon { TechnicalName = "rpg", CleanName = "RPG-7", ImageName = "rpg" },
 
+                // Deathstreals
+                new MW2Weapon { TechnicalName = "frag_grenade_short", CleanName = "Martyrdom", ImageName = "frag_grenade_short" },
+
                 // Equipment
                 new MW2Weapon { TechnicalName = "frag_grenade", CleanName = "Frag", ImageName = "frag_grenade" },
                 new MW2Weapon { TechnicalName = "semtex", CleanName = "Semtex", ImageName = "semtex" },
@@ -121,15 +124,15 @@ namespace MW2_Statistics_Dashboard
                 new MW2Weapon { TechnicalName = "pavelow_minigun", CleanName = "Pave Low", ImageName = "pavelow_minigun" },
                 new MW2Weapon { TechnicalName = "stealth_bomb", CleanName = "Stealth Bomber", ImageName = "stealth_bomb" },
                 new MW2Weapon { TechnicalName = "cobra_player_minigun", CleanName = "Chopper Gunner", ImageName = "cobra_player_minigun" },
-                new MW2Weapon { TechnicalName = "ac130_25mm", CleanName = "AC130", ImageName = "ac130" },
-                new MW2Weapon { TechnicalName = "ac130_40mm", CleanName = "AC130", ImageName = "ac130" },
-                new MW2Weapon { TechnicalName = "ac130_105mm", CleanName = "AC130", ImageName = "ac130" },
+                new MW2Weapon { TechnicalName = "ac130_25mm", CleanName = "AC130 25mm", ImageName = "ac130" },
+                new MW2Weapon { TechnicalName = "ac130_40mm", CleanName = "AC130 40mm", ImageName = "ac130" },
+                new MW2Weapon { TechnicalName = "ac130_105mm", CleanName = "AC130 105mm", ImageName = "ac130" },
                 new MW2Weapon { TechnicalName = "nuke", CleanName = "Tactical Nuke", ImageName = "nuke" },
 
                 // Environment
                 new MW2Weapon { TechnicalName = "barrel", CleanName = "Barrel", ImageName = "barrel" },
-                new MW2Weapon { TechnicalName = "destructible_car", CleanName = "Car", ImageName = "destructible_car" },
-                new MW2Weapon { TechnicalName = "turret_minigun", CleanName = "Mounted Minigun", ImageName = "turret_minigun" },
+                new MW2Weapon { TechnicalName = "destructible_car", CleanName = "Car", ImageName = "car" },
+                new MW2Weapon { TechnicalName = "turret_minigun", CleanName = "Mounted Minigun", ImageName = "minigun" },
             };
 
             MW2Weapon[] weaponAttachments =
@@ -211,6 +214,7 @@ namespace MW2_Statistics_Dashboard
                                 }
                             }
                         }
+                        break;
                     }
                 }
                 if(cleanName == string.Empty)

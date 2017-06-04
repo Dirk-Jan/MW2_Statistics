@@ -12,7 +12,7 @@ namespace MW2_Statistics_Dashboard
         public long Id { get; set; }
         public DateTime LastSeen
         {
-            get { return DateTime.FromBinary(mDateTimeLastSeen); }
+            get { return new DateTime(mDateTimeLastSeen); }
         }
         public List<string> Aliasses { get; set; }
 
@@ -20,12 +20,19 @@ namespace MW2_Statistics_Dashboard
         {
             Id = id;
             mDateTimeLastSeen = lastSeen;
-            Aliasses = Database.GetAliasses(id);
+            Aliasses = Database.GetAliasses(id, null);
+        }
+
+        public Player(long id, long lastSeen, Match match)
+        {
+            Id = id;
+            mDateTimeLastSeen = lastSeen;
+            Aliasses = Database.GetAliasses(id, match);
         }
 
         public override string ToString()
         {
-            return Aliasses[Aliasses.Count - 1];
+            return Aliasses[0];
         }
     }
 }

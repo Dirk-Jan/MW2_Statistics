@@ -88,7 +88,7 @@ namespace MW2_Statistics
 
         private void btnReadLogFile_Click(object sender, EventArgs e)
         {
-            SourceFileReader.CollectFeed();
+            //SourceFileReader.CollectFeed();
         }
 
         private void btnSteamIdConvert_Click(object sender, EventArgs e)
@@ -116,7 +116,7 @@ namespace MW2_Statistics
         Thread mReader = null;
         private void btnToggleReadHostFile_Click(object sender, EventArgs e)
         {
-            if(mReader == null)
+            /*if(mReader == null)
             {
                 mReader = new Thread(new ThreadStart(ReadData));
                 btnToggleReadHostFile.Text = "Stop reading";
@@ -127,10 +127,10 @@ namespace MW2_Statistics
                 mReader.Abort();
                 mReader = null;
                 btnToggleReadHostFile.Text = "Start reading";
-            }
+            }*/
         }
 
-        private void ReadData()
+        /*private void ReadData()
         {
             for(;;)
             {
@@ -138,7 +138,7 @@ namespace MW2_Statistics
                 SourceFileReader.CollectFeed();
                 Thread.Sleep(100);
             }
-        }
+        }*/
 
         private void btnGetCurrentMatchId_Click(object sender, EventArgs e)
         {

@@ -10,15 +10,15 @@ namespace MW2_Statistics
 {
     public static class SourceFileReader
     {
-        private const string mReadFile = "readfile";
+        //private const string mReadFile = "readfile";
         //private static string mHostFilePath = @"C:\Program Files (x86)\Steam\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
         //private static string mHostFilePath = @"C:\Users\Dirk-Jan de Beijer\Desktop\games_mp.log";
-        private static string mHostFilePath = @"E:\SteamLibrary\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
+        //private static string hostFilePath = @"E:\SteamLibrary\steamapps\common\Call of Duty Modern Warfare 2\main\games_mp.log";
         private static string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-        public static void CollectFeed()
+        public static void CollectFeed(string hostFilePath)
         {
-            if (!File.Exists(mHostFilePath))
+            if (!File.Exists(hostFilePath))
                 return;
 
             string newFile = mRootPath + @"\copy";
@@ -26,7 +26,7 @@ namespace MW2_Statistics
             // Copy file
             if (File.Exists(newFile))
                 File.Delete(newFile);
-            File.Copy(mHostFilePath, newFile);
+            File.Copy(hostFilePath, newFile);
 
             // Get last read line
             UInt32 linesRead = 0;

@@ -40,7 +40,7 @@ namespace MW2_Statistics_Dashboard
             tblkLastSeen.Text = "Last seen: " + p.LastSeen.ToString("dd-MM-yyyy HH:mm");
 
             coboxAliases.ItemsSource = p.Aliasses;                  // Load aliases in combobox
-            coboxAliases.SelectedIndex = p.Aliasses.Count > 0 ? p.Aliasses.Count - 1 : 0;      // Set selected index to last
+            coboxAliases.SelectedIndex = 0;
 
             int kills = Database.GetKillCount(p.Id, mMatch);
             int deaths = Database.GetDeathCount(p.Id, mMatch);

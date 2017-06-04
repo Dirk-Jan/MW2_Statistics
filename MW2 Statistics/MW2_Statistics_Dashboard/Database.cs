@@ -108,7 +108,7 @@ namespace MW2_Statistics_Dashboard
                 {
                     try
                     {
-                        list.Add(new Player(Convert.ToInt64(dt.Rows[i]["id"]), Convert.ToInt64(dt.Rows[i]["LastSeen"])));
+                        list.Add(new Player(Convert.ToInt64(dt.Rows[i]["id"]), Convert.ToInt64(dt.Rows[i]["LastSeen"]), match));
                     }
                     catch (Exception ex) { }
                 }
@@ -141,7 +141,7 @@ namespace MW2_Statistics_Dashboard
                 {
                     try
                     {
-                        list.Add(new Player(Convert.ToInt64(dt.Rows[i]["id"]), Convert.ToInt64(dt.Rows[i]["LastSeen"])));
+                        list.Add(new Player(Convert.ToInt64(dt.Rows[i]["id"]), Convert.ToInt64(dt.Rows[i]["LastSeen"]), match));
                     }
                     catch (Exception ex) { }
                 }
@@ -149,17 +149,31 @@ namespace MW2_Statistics_Dashboard
             return list;
         }
 
-        public static List<string> GetAliasses(long playerId)
+        public static List<string> GetAliasses(long playerId, Match match)
         {
             var list = new List<string>();
-            string query = "SELECT DISTINCT PlayerName FROM Alias " +
+            string query;
+            if(match == null)
+            {
+                query = "SELECT DISTINCT PlayerName FROM Alias " +
                 "WHERE PlayerId = @PlayerId;";
+            }
+            else
+            {
+                query = "SELECT DISTINCT PlayerName FROM Alias " +
+                "WHERE PlayerId = @PlayerId AND MatchId = @MatchId;";
+            }
 
             using (SqlConnection connection = new SqlConnection(mConnectionString))
             using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
             {
                 connection.Open();
+
                 adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", playerId);
+                if (match != null)
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
+                }
 
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
