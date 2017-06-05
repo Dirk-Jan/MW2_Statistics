@@ -21,10 +21,12 @@ namespace MW2_Statistics_Dashboard
     /// </summary>
     public partial class IndividualPlayerStats : UserControl
     {
+        private static readonly string mImagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
+
         private long mPlayerId;
         private Match mMatch;
+        private Player mMostKilled, mMostKilledBy;
 
-        private string mImagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
         public IndividualPlayerStats()
         {
             InitializeComponent();
@@ -35,7 +37,7 @@ namespace MW2_Statistics_Dashboard
             mPlayerId = p.Id;
             mMatch = match;
 
-            tblkPlayerName.Text = p.Aliasses[p.Aliasses.Count - 1];
+            tblkPlayerName.Text = p.Aliasses[0];
 
             tblkLastSeen.Text = "Last seen: " + p.LastSeen.ToString("dd-MM-yyyy HH:mm");
 
@@ -59,12 +61,6 @@ namespace MW2_Statistics_Dashboard
             string favouriteWepon = Database.GetFavouriteWeapon(p.Id, mMatch);
             tblkFavWepName.Text = "";
             imgFavouriteWeapon.Source = null;                               // Empty image, otherwise when favouriteWeapon is null or no image was found in the for loop the image won't change
-            /*if (!String.IsNullOrEmpty(favouriteWepon))
-            {
-                Uri val = GetWeaponImageUri(favouriteWepon);
-                if(val != null)
-                    imgFavouriteWeapon.Source = new BitmapImage(val);
-            }*/
             imgFavWepAttachment1.Source = null;
             imgFavWepAttachment2.Source = null;
             if (!String.IsNullOrEmpty(favouriteWepon))
@@ -81,12 +77,17 @@ namespace MW2_Statistics_Dashboard
                     imgFavWepAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
             }
 
-            tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id, mMatch);
-            tblkMostKilledBy.Text = Database.GetMostKilledByPlayerName(p.Id, mMatch);
+            mMostKilled = Database.GetMostKilledPlayer(p.Id, mMatch);
+            mMostKilledBy = Database.GetMostKilledByPlayer(p.Id, mMatch);
+            tblkMostKilled.Text = mMostKilled == null ? "No-one" : mMostKilled.Aliasses[0];
+            tblkMostKilledBy.Text = mMostKilledBy == null ? "No-one" : mMostKilledBy.Aliasses[0];
+
+            //tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id, mMatch);
+            //tblkMostKilledBy.Text = Database.GetMostKilledByPlayerName(p.Id, mMatch);
 
             tblkLongestKillingSpree.Text = Database.GetLongestKillingSpree(p.Id, mMatch).ToString();
 
-            //Weapon tab
+            // Weapons tab
             lboxWeapons.ItemsSource = Database.GetWeapons(p.Id, mMatch);
             if (lboxWeapons.Items.Count > 0)
                 lboxWeapons.SelectedIndex = 0;
@@ -110,9 +111,11 @@ namespace MW2_Statistics_Dashboard
 
         private void lboxWeapons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            imgWeapon.Source = null;
+            imgAttachment1.Source = null;
+            imgAttachment2.Source = null;
             if (e.AddedItems.Count < 1)
             {
-                imgWeapon.Source = null;
                 tblkWeaponKills.Text = "-";
                 tblkWeaponHeadShots.Text = "-";
                 tblkWeaponKilledBy.Text = "-";
@@ -121,16 +124,12 @@ namespace MW2_Statistics_Dashboard
             {
                 Weapon wep = (Weapon)e.AddedItems[0];
 
-                imgWeapon.Source = null;
-                /*Uri val = GetWeaponImageUri(wep.Name);
-                if (val != null)
-                    imgWeapon.Source = new BitmapImage(val);*/
                 if (File.Exists(mImagePath + wep.WeaponImage))
                     imgWeapon.Source = new BitmapImage(new Uri(mImagePath + wep.WeaponImage));
-                imgAttachment1.Source = null;
+                
                 if(wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
                     imgAttachment1.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage1));
-                imgAttachment2.Source = null;
+                
                 if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
                     imgAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
 
@@ -150,7 +149,14 @@ namespace MW2_Statistics_Dashboard
 
         private void tblkName_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            
+            if(((TextBlock)sender).Name == "tblkMostKilled")
+            {
+                OnNameClicked(mMostKilled);
+            }
+            else if (((TextBlock)sender).Name == "tblkMostKilledBy")
+            {
+                OnNameClicked(mMostKilledBy);
+            }
         }
     }
 }

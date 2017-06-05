@@ -359,11 +359,11 @@ namespace MW2_Statistics_Dashboard
             string query;
             if (match == null)
             {
-                query = "SELECT t.WeaponId, w.Name FROM(SELECT DISTINCT WeaponId FROM Hit WHERE PlayerId_Attacker = @PlayerId AND FinalBlow = 1) t, Weapon w WHERE t.WeaponId = w.id";
+                query = "SELECT * FROM Player p, (SELECT top(1) PlayerId_Victim, COUNT(*) AS KillCount FROM Hit WHERE PlayerId_Attacker = @PlayerId AND FinalBlow = 1 GROUP BY PlayerId_Victim ORDER BY KillCount DESC) sq WHERE sq.PlayerId_Victim = p.id";
             }
             else
             {
-                query = "SELECT t.WeaponId, w.Name FROM(SELECT DISTINCT WeaponId FROM Hit WHERE MatchId = @MatchId AND PlayerId_Attacker = @PlayerId AND FinalBlow = 1) t, Weapon w WHERE t.WeaponId = w.id";
+                query = "SELECT * FROM Player p, (SELECT top(1) PlayerId_Victim, COUNT(*) AS KillCount FROM Hit WHERE MatchId = @MatchId AND PlayerId_Attacker = @PlayerId AND FinalBlow = 1 GROUP BY PlayerId_Victim ORDER BY KillCount DESC) sq WHERE sq.PlayerId_Victim = p.id";
             }
 
             using (SqlConnection connection = new SqlConnection(mConnectionString))
@@ -380,13 +380,14 @@ namespace MW2_Statistics_Dashboard
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-                for (int i = 0; i < dt.Rows.Count; i++)
+                if (dt.Rows.Count > 0)
                 {
-                    int id = Convert.ToInt32(dt.Rows[i]["WeaponId"]);
-                    string name = (string)dt.Rows[i]["Name"];
-
-                    list.Add(new Weapon(id, name));
+                    long id = Convert.ToInt64(dt.Rows[0]["id"]);
+                    long lastSeen = Convert.ToInt64(dt.Rows[0]["LastSeen"]);
+                    return new Player(id, lastSeen, match);
                 }
+                else
+                    return null;
             }
         }
 
@@ -423,7 +424,39 @@ namespace MW2_Statistics_Dashboard
 
         public static Player GetMostKilledByPlayer(long playerId, Match match)
         {
+            string query;
+            if (match == null)
+            {
+                query = "SELECT * FROM Player p, (SELECT top(1) PlayerId_Attacker, COUNT(*) AS KillCount FROM Hit WHERE PlayerId_Victim = @PlayerId AND FinalBlow = 1 GROUP BY PlayerId_Attacker ORDER BY KillCount DESC) sq WHERE sq.PlayerId_Attacker = p.id";
+            }
+            else
+            {
+                query = "SELECT * FROM Player p, (SELECT top(1) PlayerId_Attacker, COUNT(*) AS KillCount FROM Hit WHERE MatchId = @MatchId AND PlayerId_Victim = @PlayerId AND FinalBlow = 1 GROUP BY PlayerId_Attacker ORDER BY KillCount DESC) sq WHERE sq.PlayerId_Attacker = p.id";
+            }
 
+            using (SqlConnection connection = new SqlConnection(mConnectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+            {
+                connection.Open();
+
+                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", playerId);
+                if (match != null)
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
+                }
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                {
+                    long id = Convert.ToInt64(dt.Rows[0]["id"]);
+                    long lastSeen = Convert.ToInt64(dt.Rows[0]["LastSeen"]);
+                    return new Player(id, lastSeen, match);
+                }
+                else
+                    return null;
+            }
         }
 
         public static int GetLongestKillingSpree(long playerId, Match match)

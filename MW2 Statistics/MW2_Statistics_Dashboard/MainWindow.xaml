@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MW2_Statistics_Dashboard"
         mc:Ignorable="d"
-        Title="Modern Warfare 2 - Dashboard" Height="500" Width="800" ContentRendered="Window_ContentRendered">
+        Title="Modern Warfare 2 - Dashboard" Height="600" Width="1400" ContentRendered="Window_ContentRendered">
     <Grid>
         <TabControl Margin="10">
             <TabItem Header="Matches">

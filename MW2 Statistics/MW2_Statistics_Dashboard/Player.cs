@@ -27,5 +27,17 @@ namespace MW2_Statistics_Dashboard
         {
             return Aliasses[0];
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != this.GetType()) return false;
+            Player p = (Player)obj;
+            if (p.Id != Id) return false;
+            return true;
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }

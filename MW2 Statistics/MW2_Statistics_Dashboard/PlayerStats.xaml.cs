@@ -33,6 +33,15 @@ namespace MW2_Statistics_Dashboard
         public PlayerStats()
         {
             InitializeComponent();
+            induvidualPlayerView.NameClicked += InduvidualPlayerView_NameClicked;
+        }
+
+        private void InduvidualPlayerView_NameClicked(Player player)
+        {
+            if (lboxPlayers.Items.Contains(player))
+            {
+                lboxPlayers.SelectedIndex = lboxPlayers.Items.IndexOf(player);
+            }
         }
 
         private void lboxPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)

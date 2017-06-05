@@ -24,7 +24,7 @@ namespace MW2_Statistics_Dashboard
         {
             Id = id;
             Name = name;
-            GetCleanName(name);
+            GetCleanNameAndImages(name);
         }
 
         public override string ToString()
@@ -32,7 +32,7 @@ namespace MW2_Statistics_Dashboard
             return CleanName;
         }
 
-        private void GetCleanName(string name)
+        private void GetCleanNameAndImages(string name)
         {
             MW2Weapon[] weaponsWithAttachments = 
             {
