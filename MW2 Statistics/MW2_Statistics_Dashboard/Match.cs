@@ -34,7 +34,7 @@ namespace MW2_Statistics_Dashboard
         public override string ToString()
         {
             if (MatchId == -1)
-                return "--==   " + DateTimeStart.ToString("dd-MM-yyyy") + "   ==--";            // This instance is a date label for the listbox
+                return "--==   " + DateTimeStart.ToString("dd-MM-yyyy") + "   ==--";            // This string is a date label for the listbox
             return DateTimeStart.ToString("HH:mm") + " -- " + DateTimeStop.ToString("HH:mm");
         }
 
