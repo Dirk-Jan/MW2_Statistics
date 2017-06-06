@@ -22,11 +22,11 @@ namespace MW2_Statistics_Dashboard
     public partial class IndividualPlayerStats : UserControl
     {
         //private static readonly string mImagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
-        private string mImagePath = "pack://application:,,,/Resources/";
+        private static readonly string mImagePath = "pack://application:,,,/Resources/";
 
-        private long mPlayerId;
+        //private long mPlayerId;
         private Match mMatch;
-        private Player mMostKilled, mMostKilledBy;
+        private Player mPlayer, mMostKilled, mMostKilledBy;
 
         public IndividualPlayerStats()
         {
@@ -35,7 +35,8 @@ namespace MW2_Statistics_Dashboard
 
         public void LoadPlayerInfoInControl(Player p, Match match)
         {
-            mPlayerId = p.Id;
+            //mPlayerId = p.Id;
+            mPlayer = p;
             mMatch = match;
 
             tblkPlayerName.Text = p.Aliasses[0];
@@ -45,8 +46,8 @@ namespace MW2_Statistics_Dashboard
             coboxAliases.ItemsSource = p.Aliasses;                  // Load aliases in combobox
             coboxAliases.SelectedIndex = 0;
 
-            int kills = Player.GetKillCount(p.Id, mMatch);
-            int deaths = Player.GetDeathCount(p.Id, mMatch);
+            int kills = p.GetKillCount(mMatch);
+            int deaths = p.GetDeathCount(mMatch);
             tblkKills.Text = kills.ToString();
             tblkDeaths.Text = deaths.ToString();
             if (deaths != 0)
@@ -57,9 +58,9 @@ namespace MW2_Statistics_Dashboard
             else
                 tblkKDR.Text = "∞";
 
-            tblkHeadshots.Text = Player.GetHeadshotCount(p.Id, mMatch).ToString();
+            tblkHeadshots.Text = p.GetHeadshotCount(mMatch).ToString();
 
-            string favouriteWepon = Player.GetFavouriteWeapon(p.Id, mMatch);
+            string favouriteWepon = p.GetFavouriteWeapon(mMatch);
             tblkFavWepName.Text = "";
             imgFavouriteWeapon.Source = null;                               // Empty image, otherwise when favouriteWeapon is null or no image was found in the for loop the image won't change
             imgFavWepAttachment1.Source = null;
@@ -81,15 +82,15 @@ namespace MW2_Statistics_Dashboard
                     imgFavWepAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
             }
 
-            mMostKilled = Player.GetMostKilledPlayer(p.Id, mMatch);
-            mMostKilledBy = Player.GetMostKilledByPlayer(p.Id, mMatch);
+            mMostKilled = p.GetMostKilledPlayer(mMatch);
+            mMostKilledBy = p.GetMostKilledByPlayer(mMatch);
             tblkMostKilled.Text = mMostKilled == null ? "No-one" : mMostKilled.Aliasses[0];
             tblkMostKilledBy.Text = mMostKilledBy == null ? "No-one" : mMostKilledBy.Aliasses[0];
 
             //tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id, mMatch);
             //tblkMostKilledBy.Text = Database.GetMostKilledByPlayerName(p.Id, mMatch);
 
-            tblkLongestKillingSpree.Text = Player.GetLongestKillingSpree(p.Id, mMatch).ToString();
+            tblkLongestKillingSpree.Text = p.GetLongestKillingSpree(mMatch).ToString();
 
             // Weapons tab
             lboxWeapons.ItemsSource = Weapon.GetWeapons(p.Id, mMatch);
@@ -123,9 +124,9 @@ namespace MW2_Statistics_Dashboard
                 if (wep.AttachmentImage2 != ".png")
                     imgAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
 
-                tblkWeaponKills.Text = Player.GetKillCount(mPlayerId, wep.Id, mMatch).ToString();
-                tblkWeaponHeadShots.Text = Player.GetHeadshotCount(mPlayerId, wep.Id, mMatch).ToString();
-                tblkWeaponKilledBy.Text = Player.GetKilledByCount(mPlayerId, wep.Id, mMatch).ToString();
+                tblkWeaponKills.Text = mPlayer.GetKillCount(wep.Id, mMatch).ToString();
+                tblkWeaponHeadShots.Text = mPlayer.GetHeadshotCount(wep.Id, mMatch).ToString();
+                tblkWeaponKilledBy.Text = mPlayer.GetKilledByCount(wep.Id, mMatch).ToString();
             }
 
         }

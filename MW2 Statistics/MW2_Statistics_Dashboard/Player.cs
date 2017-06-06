@@ -111,7 +111,7 @@ namespace MW2_Statistics_Dashboard
             return list;
         }
 
-        public static List<string> GetAliasses(long playerId, Match match)
+        private List<string> GetAliasses(long playerId, Match match)
         {
             var list = new List<string>();
             string query;
@@ -152,7 +152,7 @@ namespace MW2_Statistics_Dashboard
             return list;
         }
 
-        public static int GetKillCount(long playerId, Match match)
+        public int GetKillCount(Match match)
         {
             int value;
             string query;
@@ -175,7 +175,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                command.Parameters.AddWithValue("@PlayerId_Attacker", playerId);
+                command.Parameters.AddWithValue("@PlayerId_Attacker", Id);
                 if (match != null)
                 {
                     command.Parameters.AddWithValue("@MatchId", match.MatchId);
@@ -186,7 +186,7 @@ namespace MW2_Statistics_Dashboard
             return value;
         }
 
-        public static int GetDeathCount(long playerId, Match match)
+        public int GetDeathCount(Match match)
         {
             int value;
             string query;
@@ -209,7 +209,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                command.Parameters.AddWithValue("@PlayerId_Victim", playerId);
+                command.Parameters.AddWithValue("@PlayerId_Victim", Id);
                 if (match != null)
                 {
                     command.Parameters.AddWithValue("@MatchId", match.MatchId);
@@ -220,7 +220,7 @@ namespace MW2_Statistics_Dashboard
             return value;
         }
 
-        public static int GetHeadshotCount(long playerId, Match match)
+        public int GetHeadshotCount(Match match)
         {
             int value;
             string query;
@@ -245,7 +245,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                command.Parameters.AddWithValue("@PlayerId_Attacker", playerId);
+                command.Parameters.AddWithValue("@PlayerId_Attacker", Id);
                 if (match != null)
                 {
                     command.Parameters.AddWithValue("@MatchId", match.MatchId);
@@ -256,7 +256,7 @@ namespace MW2_Statistics_Dashboard
             return value;
         }
 
-        public static string GetFavouriteWeapon(long playerId, Match match)
+        public string GetFavouriteWeapon(Match match)
         {
             string name;
             string query;
@@ -274,7 +274,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                command.Parameters.AddWithValue("@PlayerId_Attacker", playerId);
+                command.Parameters.AddWithValue("@PlayerId_Attacker", Id);
                 if (match != null)
                 {
                     command.Parameters.AddWithValue("@MatchId", match.MatchId);
@@ -285,7 +285,7 @@ namespace MW2_Statistics_Dashboard
             return name;
         }
 
-        public static Player GetMostKilledPlayer(long playerId, Match match)
+        public Player GetMostKilledPlayer(Match match)
         {
             string query;
             if (match == null)
@@ -302,7 +302,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", playerId);
+                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", Id);
                 if (match != null)
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
@@ -322,7 +322,7 @@ namespace MW2_Statistics_Dashboard
             }
         }
 
-        public static Player GetMostKilledByPlayer(long playerId, Match match)
+        public Player GetMostKilledByPlayer(Match match)
         {
             string query;
             if (match == null)
@@ -339,7 +339,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", playerId);
+                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", Id);
                 if (match != null)
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
@@ -359,7 +359,7 @@ namespace MW2_Statistics_Dashboard
             }
         }
 
-        public static int GetLongestKillingSpree(long playerId, Match match)
+        public int GetLongestKillingSpree(Match match)
         {
             int maxKillingSpree = 0;
             string query;
@@ -377,7 +377,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", playerId);
+                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", Id);
                 if (match != null)
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
@@ -403,11 +403,11 @@ namespace MW2_Statistics_Dashboard
                         currentMatchId = matchId;
                     }
 
-                    if (victimId == playerId)    // Player was killed
+                    if (victimId == Id)    // Player was killed
                     {
                         killingSpree = 0;
                     }
-                    else if (attackerId == playerId) // Player got kill, but didn't kill himself (if he kills himself playerId == victimId == attackerId)
+                    else if (attackerId == Id) // Player got kill, but didn't kill himself (if he kills himself playerId == victimId == attackerId)
                     {
                         killingSpree++;
                     }
@@ -420,7 +420,7 @@ namespace MW2_Statistics_Dashboard
         }
 
         #region Weapon specific
-        public static int GetKillCount(long playerId, int weaponId, Match match)
+        public int GetKillCount(int weaponId, Match match)
         {
             int value;
             string query;
@@ -445,7 +445,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                command.Parameters.AddWithValue("@PlayerId_Attacker", playerId);
+                command.Parameters.AddWithValue("@PlayerId_Attacker", Id);
                 command.Parameters.AddWithValue("@WeaponId", weaponId);
                 if (match != null)
                 {
@@ -457,7 +457,7 @@ namespace MW2_Statistics_Dashboard
             return value;
         }
 
-        public static int GetHeadshotCount(long playerId, int weaponId, Match match)
+        public int GetHeadshotCount(int weaponId, Match match)
         {
             int value;
             string query;
@@ -484,7 +484,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                command.Parameters.AddWithValue("@PlayerId_Attacker", playerId);
+                command.Parameters.AddWithValue("@PlayerId_Attacker", Id);
                 command.Parameters.AddWithValue("@WeaponId", weaponId);
                 if (match != null)
                 {
@@ -496,7 +496,7 @@ namespace MW2_Statistics_Dashboard
             return value;
         }
 
-        public static int GetKilledByCount(long playerId, int weaponId, Match match)
+        public int GetKilledByCount(int weaponId, Match match)
         {
             int value;
             string query;
@@ -521,7 +521,7 @@ namespace MW2_Statistics_Dashboard
             {
                 connection.Open();
 
-                command.Parameters.AddWithValue("@PlayerId_Victim", playerId);
+                command.Parameters.AddWithValue("@PlayerId_Victim", Id);
                 command.Parameters.AddWithValue("@WeaponId", weaponId);
                 if (match != null)
                 {

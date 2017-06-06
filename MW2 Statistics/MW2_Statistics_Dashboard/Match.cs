@@ -50,6 +50,7 @@ namespace MW2_Statistics_Dashboard
             }
             return matches;
         }
+
         public static List<Match> GetMatches()
         {
             return GetMatches(false, 0, 0);
