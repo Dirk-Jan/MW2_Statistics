@@ -11,11 +11,13 @@ namespace MW2_Statistics_Dashboard
 {
     public static class Database
     {
-        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        private static readonly string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        /*private static readonly string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";
+                "Initial Catalog=mw2stats";*/
 
-        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        //private static readonly string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        private static readonly string mConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + mRootPath + @"\mw2stats.mdf;Integrated Security=True";
 
         public static List<Match> AddDataLabelsToMatchesList(List<Match> matches)
         {

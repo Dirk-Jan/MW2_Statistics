@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -111,6 +112,240 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\aa12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ac130.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\acog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ak47.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\akimbo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\artillery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\at4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\aug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\barrel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\barrett.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\beretta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\beretta393.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\c4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\car.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cheytac.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\claymore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cobra_20mm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cobra_player_minigun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\coltanaconda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\concussion_grenade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\deserteagle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\eotech.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\f2000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\fal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\famas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\flash_grenade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\fmj.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\frag_grenade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\frag_grenade_short.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\gl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\glock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\grip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\harrier_20mm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\heartbeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\javelin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\kriss.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\m4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\m16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\m21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\m79.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\m240.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\m1014.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\masada.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mg4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\minigun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\model1887.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mp5k.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\nuke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\p90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pavelow_minigun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pp2000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ranger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\reflex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\remotemissile_projectile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\riotshield.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rof.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rpd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rpg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sa80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\scar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\semtex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sentry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shotgun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\silencer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\smoke_grenade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\spas12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\stinger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\striker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tactical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tavor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\thermal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\throwingknife.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tmp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ump45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\usp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\uzi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\wa2000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\xmags.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

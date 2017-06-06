@@ -10,7 +10,7 @@ namespace MW2_Statistics
 {
     public static class SourceFileReader
     {
-        private static string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        private static readonly string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         public static void CollectFeed(string hostFilePath)
         {

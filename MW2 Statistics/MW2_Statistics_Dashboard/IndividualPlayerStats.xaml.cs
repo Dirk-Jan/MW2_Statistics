@@ -21,7 +21,8 @@ namespace MW2_Statistics_Dashboard
     /// </summary>
     public partial class IndividualPlayerStats : UserControl
     {
-        private static readonly string mImagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
+        //private static readonly string mImagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
+        private string mImagePath = "pack://application:,,,/Resources/";
 
         private long mPlayerId;
         private Match mMatch;
@@ -67,13 +68,16 @@ namespace MW2_Statistics_Dashboard
             {
                 Weapon wep = new Weapon(-1, favouriteWepon);
                 tblkFavWepName.Text = wep.CleanName;
-                if(File.Exists(mImagePath + wep.WeaponImage))
+                //if(File.Exists(mImagePath + wep.WeaponImage))
+                if (wep.WeaponImage != ".png")
                     imgFavouriteWeapon.Source = new BitmapImage(new Uri(mImagePath + wep.WeaponImage));
-                
-                if (wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+
+                //if (wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+                if (wep.AttachmentImage1 != ".png")
                     imgFavWepAttachment1.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage1));
-                
-                if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+
+                //if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+                if (wep.AttachmentImage2 != ".png")
                     imgFavWepAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
             }
 
@@ -93,22 +97,6 @@ namespace MW2_Statistics_Dashboard
                 lboxWeapons.SelectedIndex = 0;
         }
 
-        private Uri GetWeaponImageUri(string weaponName)
-        {
-            Uri value = null;
-            string imagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
-            string[] images = Directory.GetFiles(imagePath);
-            foreach (var item in images)
-            {
-                if (weaponName.Contains(System.IO.Path.GetFileNameWithoutExtension(item)))
-                {
-                    value = new Uri(item);
-                    break;
-                }
-            }
-            return value;
-        }
-
         private void lboxWeapons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             imgWeapon.Source = null;
@@ -124,13 +112,15 @@ namespace MW2_Statistics_Dashboard
             {
                 Weapon wep = (Weapon)e.AddedItems[0];
 
-                if (File.Exists(mImagePath + wep.WeaponImage))
+                if (wep.WeaponImage != ".png")
                     imgWeapon.Source = new BitmapImage(new Uri(mImagePath + wep.WeaponImage));
-                
-                if(wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+
+                //if(wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+                if (wep.AttachmentImage1 != ".png")
                     imgAttachment1.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage1));
-                
-                if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+
+                //if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+                if (wep.AttachmentImage2 != ".png")
                     imgAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
 
                 tblkWeaponKills.Text = Database.GetKillCount(mPlayerId, wep.Id, mMatch).ToString();

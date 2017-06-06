@@ -9,15 +9,14 @@ namespace MW2_Statistics
 {
     public static class DataBase
     {
-        private static string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        private static readonly string mRootPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        /*private static readonly string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";
+                "Initial Catalog=mw2stats";*/
 
-        //private static string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        //private static readonly string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
+        private static readonly string mConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + mRootPath + @"\mw2stats.mdf;Integrated Security=True";
 
-        // Should I get the playerId from the db and save it in a var and use it for further queries or use a subquery in each query?
-        //
-        //
         #region Player
         public static long GetPlayerIdBySteamId(UInt64 steamId)
         {
@@ -28,7 +27,7 @@ namespace MW2_Statistics
                 "WHERE SteamId = @SteamId;";
 
             using (SqlConnection connection = new SqlConnection(mConnectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))                  // Why in using statement?
+            using (SqlCommand command = new SqlCommand(query, connection))
             {
                 connection.Open();
                 command.Parameters.AddWithValue("@SteamId", convertedSteamId);
