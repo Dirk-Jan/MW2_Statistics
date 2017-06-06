@@ -21,10 +21,11 @@ namespace MW2_Statistics_Dashboard
     /// </summary>
     public partial class IndividualPlayerStats : UserControl
     {
-        //private static readonly string mImagePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"/images/";
         private static readonly string mImagePath = "pack://application:,,,/Resources/";
 
-        //private long mPlayerId;
+        public delegate void NameClickedEventHandler(Player player);
+        public event NameClickedEventHandler NameClicked;
+
         private Match mMatch;
         private Player mPlayer, mMostKilled, mMostKilledBy;
 
@@ -69,15 +70,13 @@ namespace MW2_Statistics_Dashboard
             {
                 Weapon wep = new Weapon(-1, favouriteWepon);
                 tblkFavWepName.Text = wep.CleanName;
-                //if(File.Exists(mImagePath + wep.WeaponImage))
+
                 if (wep.WeaponImage != ".png")
                     imgFavouriteWeapon.Source = new BitmapImage(new Uri(mImagePath + wep.WeaponImage));
-
-                //if (wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+                
                 if (wep.AttachmentImage1 != ".png")
                     imgFavWepAttachment1.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage1));
-
-                //if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+                
                 if (wep.AttachmentImage2 != ".png")
                     imgFavWepAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
             }
@@ -86,9 +85,6 @@ namespace MW2_Statistics_Dashboard
             mMostKilledBy = p.GetMostKilledByPlayer(mMatch);
             tblkMostKilled.Text = mMostKilled == null ? "No-one" : mMostKilled.Aliasses[0];
             tblkMostKilledBy.Text = mMostKilledBy == null ? "No-one" : mMostKilledBy.Aliasses[0];
-
-            //tblkMostKilled.Text = Database.GetMostKilledPlayerName(p.Id, mMatch);
-            //tblkMostKilledBy.Text = Database.GetMostKilledByPlayerName(p.Id, mMatch);
 
             tblkLongestKillingSpree.Text = p.GetLongestKillingSpree(mMatch).ToString();
 
@@ -115,12 +111,10 @@ namespace MW2_Statistics_Dashboard
 
                 if (wep.WeaponImage != ".png")
                     imgWeapon.Source = new BitmapImage(new Uri(mImagePath + wep.WeaponImage));
-
-                //if(wep.AttachmentImage1 != null && File.Exists(mImagePath + wep.AttachmentImage1))
+                
                 if (wep.AttachmentImage1 != ".png")
                     imgAttachment1.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage1));
-
-                //if (wep.AttachmentImage2 != null && File.Exists(mImagePath + wep.AttachmentImage2))
+                
                 if (wep.AttachmentImage2 != ".png")
                     imgAttachment2.Source = new BitmapImage(new Uri(mImagePath + wep.AttachmentImage2));
 
@@ -130,14 +124,7 @@ namespace MW2_Statistics_Dashboard
             }
 
         }
-
-        public delegate void NameClickedEventHandler(Player player);
-        public event NameClickedEventHandler NameClicked;
-        protected virtual void OnNameClicked(Player player)
-        {
-            NameClicked?.Invoke(player);
-        }
-
+        
         private void tblkName_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if(((TextBlock)sender).Name == "tblkMostKilled")
@@ -148,6 +135,11 @@ namespace MW2_Statistics_Dashboard
             {
                 OnNameClicked(mMostKilledBy);
             }
+        }
+
+        protected virtual void OnNameClicked(Player player)
+        {
+            NameClicked?.Invoke(player);
         }
     }
 }

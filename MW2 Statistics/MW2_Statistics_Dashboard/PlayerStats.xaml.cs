@@ -29,7 +29,16 @@ namespace MW2_Statistics_Dashboard
                     lboxPlayers.SelectedIndex = 0;
             }
         }
-        public Match Match { get; set; }
+        private Match mMatch;
+        public Match Match
+        {
+            get { return mMatch; }
+            set
+            {
+                mMatch = value;
+                //Players = mMatch.Players;
+            }
+        }
         public PlayerStats()
         {
             InitializeComponent();

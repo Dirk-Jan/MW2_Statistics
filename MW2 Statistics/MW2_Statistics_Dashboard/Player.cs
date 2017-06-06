@@ -10,18 +10,14 @@ namespace MW2_Statistics_Dashboard
 {
     public class Player : Database
     {
-        private long mDateTimeLastSeen;
         public long Id { get; set; }
-        public DateTime LastSeen
-        {
-            get { return new DateTime(mDateTimeLastSeen); }
-        }
+        public DateTime LastSeen { get; set; }
         public List<string> Aliasses { get; set; }
 
-        public Player(long id, long lastSeen, Match match)
+        public Player(long id, long lastSeenTicks, Match match)
         {
             Id = id;
-            mDateTimeLastSeen = lastSeen;
+            LastSeen = new DateTime(lastSeenTicks);
             Aliasses = GetAliasses(id, match);
         }
 
@@ -37,12 +33,13 @@ namespace MW2_Statistics_Dashboard
             if (p.Id != Id) return false;
             return true;
         }
+
         public override int GetHashCode()
         {
             return Id.GetHashCode();
         }
 
-        #region Overal Player Stats
+        #region SQL Queries
         public static List<Player> GetPlayersWithFilter(Match match, string filterValue)
         {
             var list = new List<Player>();

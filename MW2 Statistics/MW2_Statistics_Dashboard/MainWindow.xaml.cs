@@ -43,8 +43,8 @@ namespace MW2_Statistics_Dashboard
             if (e.AddedItems.Count > 0)
             {
                 Match m = (Match)e.AddedItems[0];
-                psMainWindow.Match = m;                         // For the database methods
-                psMainWindow.Players = Player.GetPlayers(m);
+                psMainWindow.Match = m;
+                psMainWindow.Players = m.Players;
             }
         }
 

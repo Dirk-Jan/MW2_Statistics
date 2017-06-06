@@ -13,12 +13,13 @@ namespace MW2_Statistics_Dashboard
         public int Id { get; set; }
         public string Name { get; set; }
         public string CleanName { get; set; }
-        private string mWeaponImage;
+
+        #region UI
+        private string mWeaponImage, mAttachmentImage1, mAttachmentImage2;
         public string WeaponImage { get { return mWeaponImage + ".png"; } }
-        private string mAttachmentImage1;
         public string AttachmentImage1 { get { return mAttachmentImage1 + ".png"; } }
-        private string mAttachmentImage2;
         public string AttachmentImage2 { get { return mAttachmentImage2 + ".png"; } }
+        #endregion
 
         public Weapon(int id, string name)
         {
@@ -236,6 +237,8 @@ namespace MW2_Statistics_Dashboard
             CleanName = cleanName;
         }
 
+
+        #region SQL Queries
         public static List<Weapon> GetWeapons(long playerId, Match match)
         {
             var list = new List<Weapon>();
@@ -273,5 +276,6 @@ namespace MW2_Statistics_Dashboard
             }
             return list;
         }
+        #endregion
     }
 }

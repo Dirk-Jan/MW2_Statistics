@@ -10,30 +10,31 @@ namespace MW2_Statistics_Dashboard
 {
     public class Match : Database
     {
-        private long mDateTimeStart;
-        private long mDateTimeStop;
+        private List<Player> mPlayers = null;
         public int MatchId { get; set; }
-        public DateTime DateTimeStart
+        public DateTime DateTimeStart { get; set; }
+        public DateTime DateTimeStop { get; set; }
+        public List<Player> Players
         {
-            get { return new DateTime(mDateTimeStart); }
+            get
+            {
+                if (mPlayers == null)
+                    mPlayers = Player.GetPlayers(this);
+                return mPlayers;
+            }
         }
 
-        public DateTime DateTimeStop
-        {
-            get { return new DateTime(mDateTimeStop); }
-        }
-
-        public Match(int matchId, long dateTimeStart, long dateTimeStop)
+        public Match(int matchId, long dateTimeStartTicks, long dateTimeStopTicks)
         {
             MatchId = matchId;
-            mDateTimeStart = dateTimeStart;
-            mDateTimeStop = dateTimeStop;
+            DateTimeStart = new DateTime(dateTimeStartTicks);
+            DateTimeStop = new DateTime(dateTimeStopTicks);
         }
 
         public override string ToString()
         {
-            if (MatchId == -1)   // This instance is a date label for the listbox
-                return "--==   " + DateTimeStart.ToString("dd-MM-yyyy") + "   ==--";
+            if (MatchId == -1)
+                return "--==   " + DateTimeStart.ToString("dd-MM-yyyy") + "   ==--";            // This instance is a date label for the listbox
             return DateTimeStart.ToString("HH:mm") + " -- " + DateTimeStop.ToString("HH:mm");
         }
 
@@ -51,6 +52,7 @@ namespace MW2_Statistics_Dashboard
             return matches;
         }
 
+        #region SQL Queries
         public static List<Match> GetMatches()
         {
             return GetMatches(false, 0, 0);
@@ -101,5 +103,6 @@ namespace MW2_Statistics_Dashboard
             }
             return list;
         }
+        #endregion
     }
 }
