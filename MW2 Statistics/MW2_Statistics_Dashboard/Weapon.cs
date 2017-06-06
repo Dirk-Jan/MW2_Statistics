@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MW2_Statistics_Dashboard
 {
-    public class Weapon
+    public class Weapon : Database
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,8 +19,6 @@ namespace MW2_Statistics_Dashboard
         public string AttachmentImage1 { get { return mAttachmentImage1 + ".png"; } }
         private string mAttachmentImage2;
         public string AttachmentImage2 { get { return mAttachmentImage2 + ".png"; } }
-
-
 
         public Weapon(int id, string name)
         {
@@ -234,6 +234,44 @@ namespace MW2_Statistics_Dashboard
             }
 
             CleanName = cleanName;
+        }
+
+        public static List<Weapon> GetWeapons(long playerId, Match match)
+        {
+            var list = new List<Weapon>();
+            string query;
+            if (match == null)
+            {
+                query = "SELECT t.WeaponId, w.Name FROM(SELECT DISTINCT WeaponId FROM Hit WHERE PlayerId_Attacker = @PlayerId AND FinalBlow = 1) t, Weapon w WHERE t.WeaponId = w.id";
+            }
+            else
+            {
+                query = "SELECT t.WeaponId, w.Name FROM(SELECT DISTINCT WeaponId FROM Hit WHERE MatchId = @MatchId AND PlayerId_Attacker = @PlayerId AND FinalBlow = 1) t, Weapon w WHERE t.WeaponId = w.id";
+            }
+
+            using (SqlConnection connection = new SqlConnection(mConnectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, connection))
+            {
+                connection.Open();
+
+                adapter.SelectCommand.Parameters.AddWithValue("@PlayerId", playerId);
+                if (match != null)
+                {
+                    adapter.SelectCommand.Parameters.AddWithValue("@MatchId", match.MatchId);
+                }
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    int id = Convert.ToInt32(dt.Rows[i]["WeaponId"]);
+                    string name = (string)dt.Rows[i]["Name"];
+
+                    list.Add(new Weapon(id, name));
+                }
+            }
+            return list;
         }
     }
 }

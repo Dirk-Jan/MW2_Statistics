@@ -55,7 +55,7 @@ namespace MW2_Statistics_Dashboard
 
         private void tboxPlayerName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Players = Database.GetPlayersWithFilter(Match, tboxPlayerName.Text);
+            Players = Player.GetPlayersWithFilter(Match, tboxPlayerName.Text);
         }
     }
 }

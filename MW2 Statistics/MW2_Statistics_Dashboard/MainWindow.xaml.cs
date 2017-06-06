@@ -28,14 +28,14 @@ namespace MW2_Statistics_Dashboard
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            var matches = Database.GetMatches();
-            Database.AddDataLabelsToMatchesList(matches);
+            var matches = Match.GetMatches();
+            Match.AddDataLabelsToMatchesList(matches);
             lboxMatches.ItemsSource = matches;
             if (matches.Count > 1)
                 lboxMatches.SelectedIndex = 1;
 
             psOverall.Match = null;                             // For the database methods
-            psOverall.Players = Database.GetPlayers(null);
+            psOverall.Players = Player.GetPlayers(null);
         }
 
         private void lboxMatches_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,7 +44,7 @@ namespace MW2_Statistics_Dashboard
             {
                 Match m = (Match)e.AddedItems[0];
                 psMainWindow.Match = m;                         // For the database methods
-                psMainWindow.Players = Database.GetPlayers(m);
+                psMainWindow.Players = Player.GetPlayers(m);
             }
         }
 
@@ -52,10 +52,10 @@ namespace MW2_Statistics_Dashboard
         {
             if (dpRangeStart.SelectedDate.HasValue && dpRangeStop.SelectedDate.HasValue)
             {
-                lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches(dpRangeStart.SelectedDate.Value.Ticks, dpRangeStop.SelectedDate.Value.Ticks));
+                lboxMatches.ItemsSource = Match.AddDataLabelsToMatchesList(Match.GetMatches(dpRangeStart.SelectedDate.Value.Ticks, dpRangeStop.SelectedDate.Value.Ticks));
             }
             else
-                lboxMatches.ItemsSource = Database.AddDataLabelsToMatchesList(Database.GetMatches());
+                lboxMatches.ItemsSource = Match.AddDataLabelsToMatchesList(Match.GetMatches());
 
             if (lboxMatches.Items.Count > 1)
                 lboxMatches.SelectedIndex = 1;
