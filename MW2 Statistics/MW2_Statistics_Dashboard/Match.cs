@@ -61,7 +61,7 @@ namespace MW2_Statistics_Dashboard
         {
             return GetMatches(true, rangeStart, rangeStop);
         }
-        private static List<Match> GetMatches(bool applyRange, long rangeStart, long rangeStop)
+        /*private static List<Match> GetMatches(bool applyRange, long rangeStart, long rangeStop)
         {
             var list = new List<Match>();
             string query;
@@ -101,6 +101,44 @@ namespace MW2_Statistics_Dashboard
                     catch (Exception ex) { }
                 }
             }
+            return list;
+        }*/
+
+        private static List<Match> GetMatches(bool applyRange, long rangeStart, long rangeStop)
+        {
+            string query;
+            if (!applyRange)
+            {
+                query = "SELECT * FROM Match ORDER BY id DESC;";
+            }
+            else
+            {
+                query = "SELECT * FROM Match WHERE TimeStart BETWEEN @RangeStart AND @RangeStop ORDER BY id DESC;";
+            }
+
+            List<Tuple<string, object>> parameters = new List<Tuple<string, object>>();
+            if (applyRange)
+            {
+                parameters.Add(new Tuple<string, object>("@RangeStart", rangeStart));
+                parameters.Add(new Tuple<string, object>("@RangeStop", rangeStop));
+            }
+
+            var dt = GetDataTableFromQuery(query, parameters);
+
+            var list = new List<Match>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                try
+                {
+                    var matchId = Convert.ToInt32(dt.Rows[i]["id"]);
+                    var timeStart = Convert.ToInt64(dt.Rows[i]["TimeStart"]);
+                    var timeStop = Convert.ToInt64(dt.Rows[i]["TimeStop"]);
+
+                    list.Add(new Match(matchId, timeStart, timeStop));
+                }
+                catch (Exception ex) { }
+            }
+
             return list;
         }
         #endregion

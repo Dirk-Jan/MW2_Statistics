@@ -24,5 +24,27 @@ namespace MW2_Statistics_Dashboard
         #region Local Database
         protected static readonly string mConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + mRootPath + @"\mw2stats.mdf;Integrated Security=True";
         #endregion
+
+        protected static DataTable GetDataTableFromQuery(string query, List<Tuple<string, object>> queryParameters)
+        {
+            var dt = new DataTable();
+            try
+            {
+                using (var connection = new SqlConnection(mConnectionString))
+                using (var adapter = new SqlDataAdapter(query, connection))
+                {
+                    connection.Open();
+
+                    foreach (var parameter in queryParameters)
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue(parameter.Item1, parameter.Item2);
+                    }
+
+                    adapter.Fill(dt);
+                }
+            }
+            catch (Exception) { }
+            return dt;
+        }
     }
 }
