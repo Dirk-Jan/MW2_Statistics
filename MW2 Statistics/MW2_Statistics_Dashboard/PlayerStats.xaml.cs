@@ -26,7 +26,10 @@ namespace MW2_Statistics_Dashboard
             {
                 lboxPlayers.ItemsSource = value;
                 if (lboxPlayers.Items.Count > 0)
+                {
+                    lboxPlayers.SelectedIndex = -1;
                     lboxPlayers.SelectedIndex = 0;
+                }
             }
         }
         private Match mMatch;
