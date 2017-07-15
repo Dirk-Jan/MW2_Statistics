@@ -60,14 +60,5 @@ namespace MW2_Statistics_Dashboard
             if (lboxMatches.Items.Count > 1)
                 lboxMatches.SelectedIndex = 1;
         }
-
-        private void btnRandomNumber_Click(object sender, RoutedEventArgs e)
-        {
-            int r = mRandom.Next();
-            StringBuilder sb = new StringBuilder("This is your useless random number: ");
-            sb.Append(r.ToString());
-            sb.Append(". Have fun with this useless random number!");
-            MessageBox.Show(sb.ToString());
-        }
     }
 }

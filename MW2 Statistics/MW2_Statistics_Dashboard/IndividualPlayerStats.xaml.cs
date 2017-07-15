@@ -141,5 +141,25 @@ namespace MW2_Statistics_Dashboard
         {
             NameClicked?.Invoke(player);
         }
+
+        private void coboxAliases_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (coboxAliases.SelectedIndex > 0)
+                coboxAliases.SelectedIndex = 0;
+        }
+
+        private void PlayerName_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var t = sender as TextBlock;
+            t.TextDecorations.Add(TextDecorations.Underline);
+            Cursor = Cursors.Hand;
+        }
+
+        private void PlayerName_MouseLeave(object sender, MouseEventArgs e)
+        {
+            var t = sender as TextBlock;
+            t.TextDecorations.RemoveAt(t.TextDecorations.Count - 1);    // Assuming the last added decoration is the underline
+            Cursor = null;
+        }
     }
 }

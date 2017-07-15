@@ -14,15 +14,15 @@ namespace MW2_Statistics
 
         // SQL Connection strings
         #region PC at home
-        /*private static readonly string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
+        private static readonly string mConnectionString = "Data Source=DEFINE_R5\\MSSQLSERVERE;" +
                 "Trusted_Connection=Yes;" +
-                "Initial Catalog=mw2stats";*/
+                "Initial Catalog=mw2stats";
         #endregion
         #region MacBook Pro
         //private static readonly string mConnectionString = @"Server=localhost\SQLEXPRESS;Database=mw2stats;Trusted_Connection=True;";
         #endregion
         #region Local Database
-        private static readonly string mConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + mRootPath + @"\mw2stats.mdf;Integrated Security=True";
+        //private static readonly string mConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + mRootPath + @"\mw2stats.mdf;Integrated Security=True";
         #endregion
 
         // SQL Queries
